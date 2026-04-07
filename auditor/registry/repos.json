@@ -59,10 +59,14 @@
       "security": "REVIEW"
     },
     "deanpeters/Product-Manager-Skills": {
-      "status": "audited",
+      "status": "contributed",
       "score": 89,
       "strategy": "batched",
-      "security": "CLEAR"
+      "security": "CLEAR",
+      "pipeline_prs": [
+        7,
+        8
+      ]
     }
   },
   "metadata": {
