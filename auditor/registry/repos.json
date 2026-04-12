@@ -299,6 +299,12 @@
       "score": 82,
       "strategy": "progressive",
       "security": "CLEAR"
+    },
+    "xiaolai/grill-for-claude": {
+      "status": "audited",
+      "score": 97,
+      "strategy": "single",
+      "security": "CLEAR"
     }
   },
   "metadata": {
