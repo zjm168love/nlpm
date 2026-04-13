@@ -329,6 +329,12 @@
       "score": 78,
       "strategy": "progressive",
       "security": "CLEAR"
+    },
+    "dontbesilent2025/dbskill": {
+      "status": "audited",
+      "score": 90,
+      "strategy": "single",
+      "security": "REVIEW"
     }
   },
   "metadata": {
