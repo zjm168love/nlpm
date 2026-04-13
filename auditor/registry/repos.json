@@ -329,6 +329,12 @@
       "score": 78,
       "strategy": "progressive",
       "security": "CLEAR"
+    },
+    "czlonkowski/n8n-skills": {
+      "status": "audited",
+      "score": 93,
+      "strategy": "single",
+      "security": "CLEAR"
     }
   },
   "metadata": {
