@@ -50,16 +50,9 @@ jobs:
             --jq "[.[] | select(.createdAt > \"$YESTERDAY\" or (.closedAt // \"\" | . > \"$YESTERDAY\"))]" \
             > /tmp/report/recent-activity.json 2>/dev/null || echo "[]" > /tmp/report/recent-activity.json
 
-          # PR tracking
-          > /tmp/report/pr-updates-raw.jsonl
-          jq -c '.repos | to_entries[] | select(.value.status == "contributed" or .value.status == "tracked")' auditor/registry/repos.json | while read -r entry; do
-            REPO=$(echo "$entry" | jq -r '.key')
-            gh pr list --repo "$REPO" --author xiaolai --state all \
-              --json number,state,title,mergedAt,closedAt \
-              --jq "[.[] | . + {repo: \"$REPO\"}]" >> /tmp/report/pr-updates-raw.jsonl 2>/dev/null || true
-            sleep 1
-          done
-          [ -s /tmp/report/pr-updates-raw.jsonl ] && jq -s 'add' /tmp/report/pr-updates-raw.jsonl > /tmp/report/pr-updates.json 2>/dev/null || echo "[]" > /tmp/report/pr-updates.json
+          # PR tracking — read from registry (track workflow populates .prs)
+          jq '[.repos | to_entries[] | select(.value.prs != null and (.value.prs | length) > 0) | .value.prs[] + {repo: .key}]' \
+            auditor/registry/repos.json > /tmp/report/pr-updates.json 2>/dev/null || echo "[]" > /tmp/report/pr-updates.json
 
       - name: Collect feedback signals
         run: |

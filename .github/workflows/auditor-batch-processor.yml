@@ -74,6 +74,31 @@ jobs:
           echo ""
 
           # ---------------------------------------------------------------
+          # Phase 1.5: Reopen closed issues for "discovered" repos
+          # (Fixes a bug where Phase 2 previously closed issues for repos
+          #  that were in the registry with status="discovered". These need
+          #  to be reopened so Phase 2 can pick them up.)
+          # ---------------------------------------------------------------
+          echo "--- Phase 1.5: Reopen wrongly-closed discovered repos ---"
+          REOPENED=0
+
+          while IFS=$'\t' read -r ISSUE_NUM TITLE; do
+            REPO=$(echo "$TITLE" | sed 's/Audit candidate: //')
+            STATUS=$(jq -r --arg name "$REPO" '.repos[$name].status // "none"' auditor/registry/repos.json)
+            if [ "$STATUS" = "discovered" ]; then
+              echo "  REOPEN #$ISSUE_NUM ($REPO): was closed but still status=discovered"
+              if [ "$DRY_RUN" != "true" ]; then
+                gh issue reopen "$ISSUE_NUM" 2>/dev/null || true
+              fi
+              REOPENED=$((REOPENED + 1))
+            fi
+          done < <(gh issue list --label "audit-candidate" --state closed --json number,title \
+            --jq '.[] | "\(.number)\t\(.title)"' 2>/dev/null)
+
+          echo "Reopened: $REOPENED wrongly-closed issues"
+          echo ""
+
+          # ---------------------------------------------------------------
           # Phase 2: Pick next batch of candidates → audit-ready
           # ---------------------------------------------------------------
           echo "--- Phase 2: Pick next audit batch ---"
@@ -98,9 +123,10 @@ jobs:
             TITLE=$(gh issue view "$ISSUE_NUM" --json title --jq '.title' 2>/dev/null)
             REPO=$(echo "$TITLE" | sed 's/Audit candidate: //')
 
-            # Skip if already in registry (already audited in a previous run)
+            # Skip if already past discovery (audited, contributed, tracked, etc.)
+            # "discovered" is the entry state from discover.yml — these repos still need auditing
             STATUS=$(jq -r --arg name "$REPO" '.repos[$name].status // "none"' auditor/registry/repos.json)
-            if [ "$STATUS" != "none" ]; then
+            if [ "$STATUS" != "none" ] && [ "$STATUS" != "discovered" ]; then
               echo "  SKIP #$ISSUE_NUM ($REPO): already in registry (status=$STATUS)"
               if [ "$DRY_RUN" != "true" ]; then
                 gh issue close "$ISSUE_NUM" --comment "Already processed (status: $STATUS). Closing duplicate." 2>/dev/null || true
@@ -139,10 +165,10 @@ jobs:
 
               REPO=$(echo "$TITLE" | sed 's/Audit candidate: //')
 
-              # Only re-trigger if NOT already in registry (not yet audited)
+              # Only re-trigger if not yet past audit stage
               STATUS=$(jq -r --arg name "$REPO" '.repos[$name].status // "none"' auditor/registry/repos.json)
-              if [ "$STATUS" != "none" ]; then
-                echo "  SKIP #$ISSUE_NUM ($REPO): already in registry (status=$STATUS)"
+              if [ "$STATUS" != "none" ] && [ "$STATUS" != "discovered" ]; then
+                echo "  SKIP #$ISSUE_NUM ($REPO): already past audit (status=$STATUS)"
                 continue
               fi
 
