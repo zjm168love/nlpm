@@ -375,7 +375,9 @@ jobs:
 
           echo "Files to audit: $AUDITED_COUNT"
           echo "$FILE_LIST" | head -20
-          [ "$AUDITED_COUNT" -gt 20 ] && echo "... and $((AUDITED_COUNT - 20)) more"
+          if [ "$AUDITED_COUNT" -gt 20 ]; then
+            echo "... and $((AUDITED_COUNT - 20)) more"
+          fi
 
       - name: Clean stale report
         env:
