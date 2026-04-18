@@ -635,10 +635,46 @@
       "stars": 33764,
       "artifacts": 509,
       "description": "Intelligent automation and multi-agent orchestration for Claude Code",
-      "status": "contributed",
+      "status": "tracked",
       "score": 76,
       "audit_issue": 82,
-      "prs": [],
+      "prs": [
+        {
+          "closedAt": "2026-04-17T17:15:22Z",
+          "mergedAt": "2026-04-17T17:15:22Z",
+          "number": 488,
+          "state": "MERGED",
+          "title": "fix: add missing YAML frontmatter to threat-modeling-expert agent"
+        },
+        {
+          "closedAt": "2026-04-17T17:15:25Z",
+          "mergedAt": "2026-04-17T17:15:25Z",
+          "number": 489,
+          "state": "MERGED",
+          "title": "fix: add missing name field to all 3 meigen-ai-design agents"
+        },
+        {
+          "closedAt": "2026-04-17T17:15:29Z",
+          "mergedAt": "2026-04-17T17:15:29Z",
+          "number": 490,
+          "state": "MERGED",
+          "title": "fix: add missing YAML frontmatter to codebase-cleanup commands"
+        },
+        {
+          "closedAt": "2026-04-17T17:15:32Z",
+          "mergedAt": "2026-04-17T17:15:32Z",
+          "number": 491,
+          "state": "MERGED",
+          "title": "fix: add missing YAML frontmatter to error-diagnostics commands"
+        },
+        {
+          "closedAt": "2026-04-17T17:15:35Z",
+          "mergedAt": "2026-04-17T17:15:35Z",
+          "number": 492,
+          "state": "MERGED",
+          "title": "fix: add missing YAML frontmatter to framework-migration and c4-architecture commands"
+        }
+      ],
       "strategy": "progressive",
       "security": "UNKNOWN",
       "contribution_type": "pr_batch",
@@ -648,7 +684,8 @@
         490,
         491,
         492
-      ]
+      ],
+      "case_study_candidate": true
     }
   },
   "metadata": {
