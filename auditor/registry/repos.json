@@ -1164,13 +1164,15 @@
       "stars": 690,
       "artifacts": 25,
       "description": "🦞+🔬: NanoResearch: The Autonomous AI Research Assistant",
-      "status": "discovered",
-      "score": null,
+      "status": "audited",
+      "score": 73,
       "audit_issue": 143,
       "prs": [],
       "source": "claudepot",
       "star_velocity": 2.0,
-      "star_anomaly": 0.0
+      "star_anomaly": 0.0,
+      "strategy": "batched",
+      "security": "BLOCKED"
     },
     "vstorm-co/pydantic-deepagents": {
       "discovered": "2026-04-18T22:52:00Z",
