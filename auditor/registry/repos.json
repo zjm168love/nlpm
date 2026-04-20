@@ -1190,13 +1190,15 @@
       "stars": 663,
       "artifacts": 198,
       "description": "Portable multi-agent harness for .agents-based skills, workflows, and standards-aware agent teams across Antigravity, Claude Code, Codex, Cursor, OpenCode, and more.",
-      "status": "discovered",
-      "score": null,
+      "status": "audited",
+      "score": 86,
       "audit_issue": 146,
       "prs": [],
       "source": "claudepot",
       "star_velocity": 11.33,
-      "star_anomaly": 1.31
+      "star_anomaly": 1.31,
+      "strategy": "batched",
+      "security": "BLOCKED"
     },
     "guanyang/antigravity-skills": {
       "discovered": "2026-04-18T22:52:00Z",
