@@ -961,7 +961,7 @@
       "stars": 32502,
       "artifacts": 4427,
       "description": "Installable GitHub library of 1,400+ agentic skills for Claude Code, Cursor, Codex CLI, Gemini CLI, Antigravity, and more. Includes installer CLI, bundles, workflows, and official/community skill collections.",
-      "status": "tracked",
+      "status": "complete",
       "score": 82,
       "audit_issue": 73,
       "prs": [
@@ -1010,7 +1010,8 @@
         537,
         538
       ],
-      "case_study_candidate": true
+      "case_study_candidate": true,
+      "case_study": "case-studies/2026-04-21-sickn33-antigravity-awesome-skills.md"
     },
     "team-attention/plugins-for-claude-natives": {
       "discovered": "2026-04-13T06:41:48Z",
