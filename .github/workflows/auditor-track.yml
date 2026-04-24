@@ -117,6 +117,27 @@ jobs:
                 FP_ARR=$(printf '%s' "$META_JSON" | jq -c '[.findings[]?.fingerprint] | map(select(. != null))' 2>/dev/null || echo '[]')
                 RULE_ARR=$(printf '%s' "$META_JSON" | jq -c '[.findings[]?.rule_id] | map(select(. != null))' 2>/dev/null || echo '[]')
 
+                # Preserve backfilled fingerprints for legacy PRs. Without
+                # this, track.yml wipes the registry's fingerprints every
+                # 4h because it treats "no metadata block in PR body =
+                # empty fingerprints" as authoritative. Backfilled records
+                # live in the registry (via backfill-pr-fingerprints.py)
+                # and carry `fingerprints_backfilled: true` as their
+                # provenance flag — when both conditions hold, carry the
+                # existing fingerprints/rule_ids forward.
+                OLD_BACKFILLED=""
+                if [ "$FP_ARR" = "[]" ]; then
+                  OLD_BACKFILLED=$(printf '%s' "$OLD_PRS" | jq -r --argjson n "$pr_num" \
+                    'map(select(.number == $n)) | .[0].fingerprints_backfilled // false' 2>/dev/null || echo "false")
+                  if [ "$OLD_BACKFILLED" = "true" ]; then
+                    FP_ARR=$(printf '%s' "$OLD_PRS" | jq -c --argjson n "$pr_num" \
+                      'map(select(.number == $n)) | .[0].fingerprints // []')
+                    RULE_ARR=$(printf '%s' "$OLD_PRS" | jq -c --argjson n "$pr_num" \
+                      'map(select(.number == $n)) | .[0].rule_ids // []')
+                    echo "  preserving $(echo "$FP_ARR" | jq length) backfilled fingerprint(s) for #$pr_num"
+                  fi
+                fi
+
                 # Prior state from the registry snapshot — used to detect transitions.
                 OLD_OUTCOME=$(printf '%s' "$OLD_PRS" | jq -r --argjson n "$pr_num" 'map(select(.number == $n)) | .[0].outcome // ""')
                 OLD_STALE=$(printf '%s' "$OLD_PRS" | jq -r --argjson n "$pr_num" 'map(select(.number == $n)) | .[0].stale_90d_emitted // false')
@@ -191,13 +212,22 @@ jobs:
                   fi
                 fi
 
+                # Preserve the backfilled-provenance flag across track runs.
+                # Without carrying it forward, the NEXT track run's `if
+                # FP_ARR == []` branch wouldn't know the PR was backfilled
+                # (PR_DATA from GitHub has no such field) and would again
+                # treat empty metadata as authoritative — wiping the
+                # fingerprints on the subsequent 4h tick.
+                BACKFILLED_FLAG="$OLD_BACKFILLED"
+                [ -z "$BACKFILLED_FLAG" ] && BACKFILLED_FLAG="false"
                 PR_ENRICHED=$(jq -cn \
                   --argjson data "$PR_DATA" \
                   --arg outcome "$OUTCOME" \
                   --argjson fingerprints "$FP_ARR" \
                   --argjson rule_ids "$RULE_ARR" \
                   --argjson stale "$STALE_EMITTED" \
-                  '$data + {outcome: $outcome, fingerprints: $fingerprints, rule_ids: $rule_ids, stale_90d_emitted: $stale}')
+                  --argjson backfilled "$BACKFILLED_FLAG" \
+                  '$data + {outcome: $outcome, fingerprints: $fingerprints, rule_ids: $rule_ids, stale_90d_emitted: $stale} + (if $backfilled then {fingerprints_backfilled: true} else {} end)')
                 ITEMS=$(echo "$ITEMS" | jq --argjson pr "$PR_ENRICHED" '. + [$pr]')
                 sleep 0.5
               done
