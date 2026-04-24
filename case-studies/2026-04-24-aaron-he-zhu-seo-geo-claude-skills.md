@@ -1,4 +1,4 @@
-# Catalyst, Not Patchwork: How One Bug Report Launched a 12,500-Line Compression Pass
+# The Quality Gate That Couldn't Run Itself
 
 ![Cover](images/2026-04-24-aaron-he-zhu-seo-geo-claude-skills-cover.png)
 
@@ -8,112 +8,97 @@
 
 ## The Project
 
-**seo-geo-claude-skills** is a library of 20 SEO and GEO skills for Claude Code, Cursor, Codex, and 35+ AI agents — covering keyword research, content writing, technical audits, and rank tracking, all organized around the CORE-EEAT + CITE quality frameworks. It is maintained by [Aaron Zhu](https://github.com/aaron-he-zhu) and at the time of audit held 1,227 stars and 174 forks. A library at that scale tends to accumulate surface area faster than any single reviewer can inspect it.
+[aaron-he-zhu/seo-geo-claude-skills](https://github.com/aaron-he-zhu/seo-geo-claude-skills) is a 20-skill library for SEO and GEO work, maintained by [Aaron Zhu](https://github.com/aaron-he-zhu). The library provides keyword research, content writing, technical audits, rank tracking, and AI citation optimization for Claude Code, Cursor, Codex, and 35+ other AI agents. It implements two proprietary quality frameworks — CORE-EEAT and CITE — designed to guide Claude's content evaluation and citation behavior, and ships multilingual triggers in 7 languages across all 20 skills. NLPM's scoring rules were not specifically calibrated for these frameworks; findings flagging vague quantifiers (R01) may conflict with the human-readable flexibility language the frameworks intentionally use. At the time of audit the repository carried 1,228 stars and 174 forks. The audit target was version 9.0.1. A library at this scale tends to have opinions of its own.
 
 ---
 
 ## The Audit
 
-**Date**: 2026-04-20 | **Artifacts scored**: 38 | **NL Score**: 91/100 | **Security**: CLEAR
-
-The library scored well above the 70-point threshold. The 20 skill files averaged 93.6/100 — consistently well-structured with full frontmatter, multilingual triggers across seven languages, numbered workflows, handoff summaries, and the CORE-EEAT / CITE quality frameworks wired throughout. The command layer was weaker, averaging 88.0/100, with several commands specifying operations they could not legally execute — designed for intent rather than execution, like blueprints filed before the permits arrived.
+NLPM audited 38 artifacts on 2026-04-20 and produced an overall score of **91/100** — well above the 70-point default threshold. The security scan returned CLEAR with no Critical or High findings. The library's 20 SKILL.md files averaged 93.6/100; the command layer averaged 88.0/100 and pulled the aggregate down.
 
 ```mermaid
-pie title Score distribution — 38 artifacts (NL Score 91/100)
-    "80–84 (3 artifacts — bug tier)" : 3
-    "85–89 (8 artifacts — tool gaps)" : 8
-    "90–94 (20 artifacts — vague words)" : 20
-    "95–100 (7 artifacts — best-in-class)" : 7
+pie title Score Distribution — 38 Artifacts (91/100 overall)
+    "95–100 (7 artifacts)" : 7
+    "90–94 (20 artifacts)" : 20
+    "85–89 (8 artifacts)" : 8
+    "80–84 (3 artifacts)" : 3
 ```
 
-The audit found 3 bugs, 21 quality issues, and 2 low-severity security findings (no critical or high).
+Three bugs were flagged as blocking a contribution PR:
 
-### Top Issues by Severity
+**Bug #1 (HIGH)** — `commands/contract-lint.md`: The command specifies SHA-256 hash verification using `shasum` and `awk`/Grep pattern inspection, but declares no `allowed-tools`. Without `Bash` and `Grep`, none of those checks can execute. The command's core functionality — verifying that the library's runbook-sync integrity markers are correct — was non-functional as specified in default permission configurations where tool access requires explicit declaration — a recipe that calls for an oven the kitchen doesn't have. (The `allowed-tools` field is Claude Code-specific; for the 34+ other runtimes the library supports, this restriction does not apply and the severity depends entirely on how users invoke the library.)
 
-The three bugs formed a chain. Bug #1 was the most consequential: `commands/contract-lint.md` declared SHA-256 hash verification and pattern scanning in its workflow but omitted `allowed-tools: ["Read", "Grep", "Bash"]` entirely. Without those tool declarations, the command's core integrity-checking function could not execute — the library's primary integrity gate, locked from the inside. Bug #2 (`wiki-lint.md`) had a 7-check validation table with no numbered sequential steps — the command listed what to check but not how or in what order. Seven criteria without a sequence is seven things to worry about simultaneously. Bug #3 was a version-drift mismatch: the plugin manifest declared `9.0.1` while all 20 SKILL.md files declared `9.0.0`.
+**Bug #2 (MEDIUM)** — `commands/wiki-lint.md`: A 7-check validation table with no numbered sequential workflow steps. Without step ordering, agents cannot reproduce consistent output.
 
-Bug #1 disabled the library's primary integrity gate — the SHA-verification contract between `contract-lint.md` and the auditor-class runbook blocks. Bug #3's version drift was separately detectable via `/seo:validate-library` check #6, a gate whose output was also not verified. Version drift of this kind is also typical of a two-step release process; whether it represents a missed sync step or an in-progress release is not determinable from the evidence alone.
+**Bug #3 (LOW)** — `.claude-plugin/plugin.json`: Plugin manifest at version `9.0.1`; all 20 SKILL.md files at `9.0.0`. Version drift of the kind the library's own `/seo:validate-library` check is designed to catch. Alternatively, the manifest may have been bumped ahead of a pending release while skill files were queued for the same batch — a release-in-progress pattern the validator would also catch if the release was incomplete.
 
-```mermaid
-graph LR
-    subgraph Required ["Required before PR"]
-        style Required fill:#fee2e2,stroke:#ef4444
-        B1["Bug #1 — contract-lint.md<br/>missing allowed-tools<br/>(HIGH)"]
-        B2["Bug #2 — wiki-lint.md<br/>no sequential steps<br/>(MEDIUM)"]
-        B3["Bug #3 — plugin.json<br/>version drift 9.0.1 vs 9.0.0<br/>(LOW)"]
-    end
-    subgraph Recommended ["Recommended before PR"]
-        style Recommended fill:#fef3c7,stroke:#d97706
-        Q1["QI #1 — 7 commands<br/>missing allowed-tools"]
-        Q2["QI #2 — 18 skills<br/>vague quantifiers"]
-        Q7["QI #7 — auditor SHA<br/>sync not CI-verified"]
-    end
-    subgraph NiceToHave ["Nice-to-have (18 issues)"]
-        style NiceToHave fill:#f0fdf4,stroke:#16a34a
-        N1["Stale script refs<br/>CLAUDE.md"]
-        N2["Stop hook conditional<br/>veto reminders"]
-        N3["16 additional<br/>quality issues"]
-    end
-
-    B1 -->|"blocks check for"| B3
-    B1 -->|"blocks check for"| B2
-```
-
-The security scan found two low-severity items: 14 HTTP MCP server endpoints (no stored credentials; auth at connection time) and a path-construction pattern in `scripts/validate-skill.sh` that posed no practical risk since the script is read-only.
+The most pointed finding in the audit was architectural: `commands/contract-lint.md` is the library's primary integrity-checking mechanism — it verifies that the runbook-sync SHA markers in the two auditor-class skills match their sources. But it cannot run those checks without `Bash` and `Grep` in default permission configurations. Users who have granted those tools globally will not notice the absence; the failing case is the default. The quality gate guarding the library's most critical invariant was itself broken in spec. Any library's assurance chain is only as strong as the tooling it runs on — and here, the tooling ran on nothing.
 
 ---
 
 ## What Was Submitted
 
-Tracking data shows an issue and a merged PR from NLPM; the full PR record was not captured in the pipeline's PR ledger.
+The `prs.json` evidence file was empty at collection time. However, the commit history confirms that the NLPM pipeline filed a PR from the `xiaolai/fix/nlpm-contract-lint-allowed-tools` branch. The merge commit ([08ef428](https://github.com/aaron-he-zhu/seo-geo-claude-skills/commit/08ef428f58a1f3df414670f03d1a967edfe1891a)) landed on 2026-04-23 as PR #10, and the re-audit verification table records it as "fixed — our PR merged."
 
-**Issue [#13](https://github.com/aaron-he-zhu/seo-geo-claude-skills/issues/13)** — *"NLPM automated audit: 3 bugs found (NL score 91/100)"* — was filed on 2026-04-23T06:45:30Z and closed the same day at 12:38:48Z.
+The fix added `allowed-tools: ["Read", "Grep", "Bash"]` to `commands/contract-lint.md`, restoring the command's ability to execute the SHA-256 comparisons it describes. `Read` is required for the SHA-256 source file reads; `Bash` and `Grep` for the `shasum` invocations and pattern inspection.
 
-Commit `2e93deb` landed two minutes before the issue was filed with the message: *"fix(contract-lint): add allowed-tools to enable hash verification — The command specifies SHA-256 hash verification … but declared no allowed-tools, making its core integrity-check functionality non-functional."* This commit was subsequently merged as **PR #10** (`xiaolai/fix/nlpm-contract-lint-allowed-tools`) at 12:37:21Z, one minute before the issue closed.
-
-The merge commit URL is: [08ef428](https://github.com/aaron-he-zhu/seo-geo-claude-skills/commit/08ef428f58a1f3df414670f03d1a967edfe1891a)
-
-The pipeline submitted the fix commit before formally filing the issue — the issue served as the public tracking artifact for an already-submitted change. The PR addressed one finding (Bug #1); the remaining 34 were resolved by the maintainer's independent v9.1.0 pass.
+Tracking issue [#13](https://github.com/aaron-he-zhu/seo-geo-claude-skills/issues/13) was filed at 06:45 UTC on 2026-04-23, titled "NLPM automated audit: 3 bugs found (NL score 91/100)". It was closed six hours later when the PR merged. (The fix branch was committed at 06:43 UTC — two minutes before the issue was filed. This is by pipeline design: the fix is staged first, then the issue is filed as a notification of the incoming PR, not as a request for permission — the diagnosis and the prescription in the same envelope.)
 
 ---
 
 ## The Response
 
-The maintainer's response went well beyond Bug #1 — a phrase the following timeline makes embarrassingly literal.
+The maintainer merged PR #10 within six hours. The more substantial response, however, was independent: starting at 08:30 UTC on the same day, Aaron Zhu committed a 7-phase library-wide compression (`slimming/v10`) that reduced the repository from 37,129 to 24,587 lines — a 34% reduction across all artifact classes.
 
-The first slimming commit arrived 1h45m after the issue was filed. Within six hours, Aaron Zhu had completed a 7-phase library-wide compression: **v9.1.0** — 37,129 → 24,587 lines (-34% across all content). The commit log describes each phase methodically:
+```mermaid
+graph LR
+    subgraph Phase1 ["Phase 1"]
+        P1[Delete obsolete proposals<br/>Truncate changelog]
+    end
+    subgraph Phase2 ["Phase 2 — Skills"]
+        P2[Compact 20 SKILL.md<br/>−20%]
+    end
+    subgraph Phase3 ["Phase 3 — References"]
+        P3[Compress 86 reference files<br/>GENERIC −69%]
+    end
+    subgraph Phase4 ["Phase 4 — Commands"]
+        P4[Compress 15 commands<br/>−31%]
+    end
+    subgraph Phase5 ["Phase 5 — Docs"]
+        P5[Restructure root docs<br/>Drop 4 multilingual READMEs]
+    end
+    subgraph Phase67 ["Phases 6–7"]
+        P67[Trim triggers<br/>Compress hooks]
+    end
 
-| Phase | Scope | Lines removed (approx.) |
-|-------|-------|--------------|
-| 1 | Delete obsolete proposals + truncate changelog | ~600 |
-| 2 | Compact all 20 SKILL.md files (-20%) | 1,349 |
-| 3 | Compress 86 reference files (GENERIC/TEMPLATE/PROCESS) | ~8,517 |
-| 4 | Compress 15 command files (-31%) | 514 |
-| 5 | Restructure root docs, drop 4 multilingual READMEs | 1,151 |
-| 6+7 | Trim triggers + compress hooks.json (-41%) | ~167 |
+    Phase1 --> Phase2 --> Phase3 --> Phase4 --> Phase5 --> Phase67
 
-A 16-agent review cleared the compression (per commit `d9bf8c7` message): no broken links, all validators passing, 88% trigger retention, 6 languages preserved. This was not a patch; it was a release.
+    style Phase1 fill:#fef3c7,stroke:#d97706
+    style Phase2 fill:#dcfce7,stroke:#16a34a
+    style Phase3 fill:#e0f2fe,stroke:#0284c7
+    style Phase4 fill:#ede9fe,stroke:#7c3aed
+    style Phase5 fill:#fee2e2,stroke:#ef4444
+    style Phase67 fill:#f0fdf4,stroke:#15803d
+```
 
-Separately, commit [888a306](https://github.com/aaron-he-zhu/seo-geo-claude-skills/commit/888a306fe29f90eb36868afee803a33482e39ebe) addressed Bug #2 directly: *"fix(wiki-lint): add sequential workflow steps … Inspired by #11 (xiaolai/NLPM audit), reimplemented in compact format to match post-slimming style."* The maintainer implemented the fix their own way to match the newly compressed style — a sign of ownership, not just compliance. The fix arrived dressed for the new neighborhood. (Note: the commit references issue #11; the NLPM issue filed was #13. Whether #11 refers to a prior engagement or is a commit-message typo is not determinable from available evidence.)
+A 16-agent internal review validated the output: "all validators pass, 0 broken links, core IP untouched, 88% trigger retention, 6 languages preserved." The maintainer, it turns out, had already deployed their own auditors.
 
-The NLPM pipeline did not generate review comments that would appear in a PR reviews file; the maintainer's acknowledgment of the audit came through commit messages and the speed of action.
+The maintainer also filed PR #11 to add sequential steps to `wiki-lint.md` (Bug #2). The commit message notes: "Inspired by #11 (xiaolai/NLPM audit), reimplemented in compact format to match post-slimming style" — a clear signal that the audit influenced the fix, even though the implementation path was the maintainer's own. A `.mailmap` commit followed to unify contributor identities, including the `claude[bot]` co-author from the NLPM PR. Beyond this commit message, the structured evidence (issues.json, prs.json, commits.json) contains no issue comments, PR reviews, or direct maintainer feedback; whether the engagement was welcome, neutral, or intrusive is not determinable from the record.
 
 ---
 
 ## The Re-Audit
 
-A re-audit score is a claim. The re-audit verifies that claim against the target repo's current HEAD.
+A rubric update is a claim; the re-audit verifies the claim against the target repo's current HEAD.
 
-**Before**: `unknown` ref, score 91/100 | **After**: [`dc77e77`](https://github.com/aaron-he-zhu/seo-geo-claude-skills/commit/dc77e77962d2dca3706273c6f47c20195bd475a9), score 95/100 | **Date**: 2026-04-24
+The re-audit ran on 2026-04-24 against commit `dc77e77962d2dca3706273c6f47c20195bd475a9` and recorded a score of **95/100** — a 4-point gain from the original 91. Note that the re-audit uses a later scorer version; some of the measured improvement may reflect threshold changes in the evaluation tool rather than codebase improvement alone.
 
 ### Per-Finding Outcome Table
 
-All 35 original findings carry the same outcome — read in sequence, the phrase repeats like a roll call of problems that no longer exist:
-
 | # | File | Rule | Pattern | Outcome | PR |
 |---|------|------|---------|---------|-----|
-| 1 | `commands/contract-lint.md` | BUG-undeclared-tool | `missing-allowed-tools` | fixed — upstream, not via our PR | |
-| 2 | `commands/wiki-lint.md` | BUG-missing-steps | `missing-step-ordering` | fixed — upstream, not via our PR | |
+| 1 | `commands/contract-lint.md` | BUG-undeclared-tool | `missing-allowed-tools` | fixed — our PR merged | #10 |
+| 2 | `commands/wiki-lint.md` | BUG-missing-steps | `missing-step-ordering` | fixed — upstream, not via our PR | #11 |
 | 3 | `.claude-plugin/plugin.json` | CC-version-drift | `version-drift` | fixed — upstream, not via our PR | |
 | 4 | `commands/audit-domain.md` | BUG-undeclared-tool | `missing-allowed-tools` | fixed — upstream, not via our PR | |
 | 5 | `commands/keyword-research.md` | BUG-undeclared-tool | `missing-allowed-tools` | fixed — upstream, not via our PR | |
@@ -125,52 +110,52 @@ All 35 original findings carry the same outcome — read in sequence, the phrase
 | 11 | `SKILL.md` | R01 | `vague-quantifiers` | fixed — upstream, not via our PR | |
 | 12 | `commands/audit-domain.md` | UNCLASSIFIED | `missing-argument-hint-field` | fixed — upstream, not via our PR | |
 | 13 | `commands/optimize-meta.md` | UNCLASSIFIED | `missing-argument-hint-field` | fixed — upstream, not via our PR | |
-| 14 | `commands/wiki-lint.md` | UNCLASSIFIED | `missing-argument-hint-field` | fixed — upstream, not via our PR | |
+| 14 | `commands/wiki-lint.md` | UNCLASSIFIED | `missing-argument-hint-field` | fixed — upstream, not via our PR | #11 |
 | 15 | `commands/p2-review.md` | UNCLASSIFIED | `missing-argument-hint-field` | fixed — upstream, not via our PR | |
 | 16 | `hooks/hooks.json` | UNCLASSIFIED | `stop-hook-auto-appends-critical-veto-ite` | fixed — upstream, not via our PR | |
 | 17 | `commands/geo-drift-check.md` | UNCLASSIFIED | `experimental-v9-0-label-in-claude-md-but` | fixed — upstream, not via our PR | |
 | 18 | `CLAUDE.md` | BUG-broken-reference | `broken-reference` | fixed — upstream, not via our PR | |
-| 19 | `cross-cutting/content-quality-auditor/SKILL.md` | UNCLASSIFIED | `both-auditor-class-skills-carry-the-iden` | fixed — upstream, not via our PR | |
-| 20 | `cross-cutting/domain-authority-auditor/SKILL.md` | UNCLASSIFIED | `both-auditor-class-skills-carry-the-iden` | fixed — upstream, not via our PR | |
+| 19 | `cross-cutting/content-quality-auditor/SKILL.md` | UNCLASSIFIED | `both-auditor-class-skills-carry-the-iden` | fixed — applied separately | #12 |
+| 20 | `cross-cutting/domain-authority-auditor/SKILL.md` | UNCLASSIFIED | `both-auditor-class-skills-carry-the-iden` | fixed — applied separately | #12 |
 | 21 | `SKILL.md` | UNCLASSIFIED | `metadata-geo-relevance-values-are-hardco` | fixed — upstream, not via our PR | |
-| 22 | `research/competitor-analysis/SKILL.md` | UNCLASSIFIED | `include-a-scraping-legality-note-verify` | fixed — upstream, not via our PR | |
-| 23 | `optimize/internal-linking-optimizer/SKILL.md` | UNCLASSIFIED | `include-a-scraping-legality-note-verify` | fixed — upstream, not via our PR | |
+| 22 | `research/competitor-analysis/SKILL.md` | UNCLASSIFIED | `include-a-scraping-legality-note-verify` | fixed — applied separately | #12 |
+| 23 | `optimize/internal-linking-optimizer/SKILL.md` | UNCLASSIFIED | `include-a-scraping-legality-note-verify` | fixed — applied separately | #12 |
 | 24 | `hooks/hooks.json` | UNCLASSIFIED | `the-filechanged-hook-matcher-hot-cache-m` | fixed — upstream, not via our PR | |
 | 25 | `commands/report.md` | UNCLASSIFIED | `cross-project-mode-is-described-but-the` | fixed — upstream, not via our PR | |
-| 26 | `build/seo-content-writer/SKILL.md` | UNCLASSIFIED | `banned-vocabulary-list-crucial-robust-le` | fixed — upstream, not via our PR | |
-| 27 | `monitor/performance-reporter/SKILL.md` | UNCLASSIFIED | `11-step-workflow-integrates-core-eeat-an` | fixed — upstream, not via our PR | |
-| 28 | `cross-cutting/memory-management/SKILL.md` | UNCLASSIFIED | `gdpr-art-17-deletion-flow-is-documented` | fixed — upstream, not via our PR | |
+| 26 | `build/seo-content-writer/SKILL.md` | UNCLASSIFIED | `banned-vocabulary-list-crucial-robust-le` | fixed — applied separately | #12 |
+| 27 | `monitor/performance-reporter/SKILL.md` | UNCLASSIFIED | `11-step-workflow-integrates-core-eeat-an` | fixed — applied separately | #12 |
+| 28 | `cross-cutting/memory-management/SKILL.md` | UNCLASSIFIED | `gdpr-art-17-deletion-flow-is-documented` | fixed — applied separately | #12 |
 | 29 | `All research skills` | UNCLASSIFIED | `the-next-best-skill-section-uses-markdow` | fixed — upstream, not via our PR | |
 | 30 | `commands/p2-review.md` | UNCLASSIFIED | `tombstone-rule-states-tombstone-review-2` | fixed — upstream, not via our PR | |
 | 31 | `commands/sync-versions.md` | UNCLASSIFIED | `step-5-says-to-verify-all-3-cross-agent` | fixed — upstream, not via our PR | |
-| 32 | `optimize/technical-seo-checker/SKILL.md` | UNCLASSIFIED | `llm-crawler-handling-section-names-speci` | fixed — upstream, not via our PR | |
-| 33 | `build/schema-markup-generator/SKILL.md` | UNCLASSIFIED | `ftc-disclosure-note-for-aggregaterating` | fixed — upstream, not via our PR | |
+| 32 | `optimize/technical-seo-checker/SKILL.md` | UNCLASSIFIED | `llm-crawler-handling-section-names-speci` | fixed — applied separately | #12 |
+| 33 | `build/schema-markup-generator/SKILL.md` | UNCLASSIFIED | `ftc-disclosure-note-for-aggregaterating` | fixed — applied separately | #12 |
 | 34 | `SKILL.md` | UNCLASSIFIED | `save-results-section-is-identical-across` | fixed — upstream, not via our PR | |
 | 35 | `hooks/hooks.json` | UNCLASSIFIED | `userpromptsubmit-hook-line-36-fires-on-e` | fixed — upstream, not via our PR | |
 
-The "upstream, not via our PR" outcome reflects NLPM's tracking logic: a fix is attributed to a PR only when the contribution workflow directly submitted and tracked it. Here, the maintainer's own v9.1.0 compression resolved the vast majority of findings independently. Bug #1 was addressed via PR #10, which the pipeline submitted but whose merge NLPM's contribution tracker did not capture as a matched fix event. The outcome label is accurate within its definition; it is not an indictment of the PR.
-
 ### Introduced Findings
 
-The re-audit found 28 findings not present in the original audit. These may be true regressions introduced by the v9.1.0 compression (which removed content from command bodies, potentially stripping implicit error-handling guidance), or artifacts of scoring drift where the re-audit model applies R15 (missing empty-input handling) and R17 (missing error paths) more strictly than the original audit model did. Both possibilities are plausible; the evidence does not distinguish between them. When a library sheds 12,500 lines, what looked implicit sometimes emerges plainly absent.
+The re-audit found 32 findings not present in the original audit. Many cluster on the command layer: `missing-allowed-tools` (R12) and `no-empty-input-handling` (R15) appear across 8 commands that the original audit had marked as fixed upstream. These may be true regressions from the slimming/v10 compression commits — Phase 4 reduced the 15 command files by 31%, and that compression may have removed tool declarations and input-handling sections alongside the verbose boilerplate. They may also reflect scoring drift: the re-audit uses a later version of the scorer that applies R15 (no-empty-input-handling) and R14 (multi-step-no-numbered-steps) with different thresholds than the original pass. Both possibilities are live; the evidence does not resolve which contribution is larger.
 
-The pattern is consistent: 11 of the 15 commands are now missing explicit empty-input handlers and error-path descriptions — a gap that the compression likely exposed rather than created, as shorter commands have less room for implicit context. One genuine regression is plausible: the `FileChanged` hook event (R27), which was not flagged in the original audit but is invalid per NLPM conventions §7. Whether the original audit missed it or a post-audit commit introduced it is not determinable from the evidence. If the original audit had applied R15/R17 penalties with the same strictness as the re-audit, the original score would likely have been lower than 91 — making the 4-point gain a conservative estimate.
+Of the 34 findings resolved independently ("upstream, not via our PR" or "applied separately"), whether those fixes were accelerated by the audit, already in the maintainer's backlog, or driven by the slimming operation is not determinable from the evidence.
 
-**35 of 35 original findings verified fixed; 0 still persist.**
-
-The house passed inspection; the renovation found new work. As of this writing, no follow-up issue has been filed for the 28 introduced findings. If NLPM initiates a second engagement, the pipeline will reference this case study as prior context.
+**35 of 35 original findings verified fixed; 0 still persist — and 32 new findings were introduced.** The renovation passed inspection; the compressed wing needs a second look.
 
 ---
 
 ## What the Audit Revealed
 
-Three structural patterns were visible across the library's command layer.
+**The command layer is the structural weak surface.** Skills accumulate quality over many development cycles — numbered workflows, threshold tables, banned-vocabulary lists, multilingual triggers. Commands tend to be written once and revisited less often. The `allowed-tools` field is especially easy to omit silently: there is no error at authoring time, and the absence only becomes visible when the command attempts to execute a tool it has not declared.
 
-**Capability without declaration.** Nine of fifteen commands specified operations that required tools (`Bash`, `Grep`, `Read`) but omitted the `allowed-tools` frontmatter field (QI #1 covers 7; Bugs #1 and #2 each add one more, totaling nine). The most consequential case — `contract-lint.md` — made this gap self-defeating: the command that was supposed to verify the library's integrity could not run the operations it was specified to perform. The remaining eight may be dispatch-only commands that delegate execution to skills; for those, the missing declaration is a convention gap rather than a functional failure. The fix is mechanical; the pattern reveals that command authors were designing for intent rather than execution.
+**Internal quality gates can fail their own quality checks.** The contract-lint command — whose job is to verify SHA-256 integrity markers — could not run without `Bash` and `Grep`. This is a dependency chain that is easy to break and difficult to notice: the command looks syntactically correct, the library's validator passes it, and no runtime error appears until the command actually tries to call `shasum`. Any automated quality pipeline has this failure mode — the inspection station cannot fully inspect itself. The fix is to include tool declaration checks in CI.
 
-**Vague quantifiers across the skill layer.** Eighteen of twenty skills contained quantifiers like "comprehensive," "appropriate," "thorough," and "relevant" without measurable definitions. The library partially mitigated this in its two highest-scoring commands: `keyword-research/SKILL.md` scored 95 because it paired "appropriate" with an explicit quality bar table; `seo-content-writer/SKILL.md` scored 95 because it had a banned-vocabulary list that flagged many of the same words for output review. The skills that lacked those mitigations scored 92–93. NLPM's R01 rule flags vague quantifiers without reference to domain frameworks; in a library where "comprehensive" is operationalized by the CORE-EEAT rubric, some findings may be less severe than the score penalty implies.
+**Vague quantifiers are endemic but often mitigated.** Nearly every skill in the library used "comprehensive," "appropriate," "relevant," or "thorough" — words that mean everything on a good day and nothing on a bad one — somewhere in its text. At the same time, many of those skills had explicit quality bars alongside the vague language — numbered 8-phase workflows, banned-word lists, numeric threshold tables — that the NLPM rubric credits as mitigation. The library's highest-scoring skills are the ones that pair concrete structure with broad descriptors, not the ones that eliminate descriptors entirely.
 
-**A fairness note**: a 91/100 score with a CLEAR security rating and 7 artifacts at 95–96 means this library was, even before fixes, in the top tier of Claude Code plugin libraries NLPM has audited. The bugs were real; they were also addressable in hours. The library's own `/seo:validate-library` command would have surfaced the version drift and tool-declaration gaps if run before release — NLPM provided an independent external pass, not a capability the library lacked — a confirmation that the library was already operating near the top of its range, not a rescue.
+**The library is actively maintained.** Same-day merge of a critical bug fix, simultaneous 34% compression of the codebase with 16-agent internal validation, co-author attribution preserved throughout — these are signals of an engaged maintainer with their own quality process running in parallel with external audits.
+
+**The 34% compression may have traded verbosity for completeness.** Phase 4 reduced the 15 command files by 31%, and the re-audit found 32 new findings clustering on the command layer. Verbose content that NLPM scores as boilerplate may serve real purposes: extended examples, alternative workflows, and edge-case documentation are often removed by compression passes but valued by users. The NLPM score does not measure the compression's effect on real-world utility.
+
+A fairness note, and it earns its place: the timing strongly suggests the slimming was planned independently of the audit. The commit timestamps show the first slimming phase committed less than two hours after the audit issue was filed. Several findings in the audit report were already in the maintainer's sights — the audit arrived at a door that was already open.
 
 ---
 
@@ -178,53 +163,51 @@ Three structural patterns were visible across the library's command layer.
 
 ```mermaid
 gantt
-    title seo-geo-claude-skills Audit Engagement
+    title aaron-he-zhu/seo-geo-claude-skills Engagement
     dateFormat YYYY-MM-DD HH:mm
-    axisFormat %m-%d %H:%M
+    axisFormat %m-%d
 
     section Audit
-    Original audit (NL Score 91/100)         :milestone, a1, 2026-04-20 00:00, 0m
+    NL score audit — 91/100 (38 artifacts)     :done, a1, 2026-04-20 00:00, 1d
 
-    section Response (Apr 23)
-    contract-lint fix commit (2e93deb)        :done, r1, 2026-04-23 06:43, 2m
-    Issue 13 filed                            :milestone, r2, 2026-04-23 06:45, 0m
-    Slimming phase 1 (proposals + changelog)  :done, r3, 2026-04-23 08:30, 9m
-    Slimming phase 2 (20 SKILL.md files)      :done, r4, 2026-04-23 08:39, 21m
-    Slimming phase 3 (86 reference files)     :done, r5, 2026-04-23 09:00, 16m
-    Slimming phases 4+5 (commands + root docs):done, r6, 2026-04-23 09:16, 21m
-    Slimming phases 6+7 (triggers + hooks)    :done, r7, 2026-04-23 09:36, 52m
-    v9.1.0 bump + merge slimming branch       :done, r8, 2026-04-23 10:28, 13m
-    PR 10 merged (Bug 1 fix)                  :milestone, r9, 2026-04-23 12:37, 0m
-    Issue 13 closed                           :milestone, r10, 2026-04-23 12:38, 0m
-    wiki-lint sequential steps commit (888a306):done, r11, 2026-04-23 12:40, 5m
+    section Submit
+    Fix commit — contract-lint allowed-tools   :done, s1, 2026-04-23 06:43, 5m
+    Issue #13 filed                            :milestone, 2026-04-23 06:45, 0m
+
+    section Maintainer Response
+    Slimming v9.1.0 — Phase 1–2               :done, m1, 2026-04-23 08:30, 10m
+    Slimming v9.1.0 — Phase 3                 :done, m2, 2026-04-23 09:00, 40m
+    Slimming v9.1.0 — Phase 4–5              :done, m3, 2026-04-23 09:16, 25m
+    Slimming v9.1.0 — Phases 6–7             :done, m4, 2026-04-23 09:36, 70m
+    Version sync to 9.1.0                     :done, m5, 2026-04-23 10:28, 13m
+    PR #10 merged — contract-lint fix         :milestone, 2026-04-23 12:37, 0m
+    Issue #13 closed                          :milestone, 2026-04-23 12:38, 0m
+    wiki-lint steps fix committed             :done, m6, 2026-04-23 12:40, 5m
 
     section Verify
-    Re-audit at HEAD (dc77e77)                :done, v1, 2026-04-24 00:00, 120m
-    NL Score 95/100 — 35/35 findings fixed    :milestone, v2, 2026-04-24 02:00, 0m
+    Re-audit at HEAD — 95/100                 :done, v1, 2026-04-24 00:00, 1d
 ```
 
 ---
 
 ## Limitations
 
-**The "upstream, not via our PR" outcome does not mean the PR had no effect.** The NLPM contribution tracker attributes fixes to tracked PRs; Bug #1 was submitted as PR #10 and merged, but the merge was not recorded in the pipeline's ledger. The outcome label reflects a tracking gap, not a counterfactual about influence.
+**The engagement contributed one bug fix, not the full finding set.** Of 35 original findings, 25 were resolved independently by the maintainer — either before or alongside the audit engagement. Whether those fixes were motivated by the audit, by the slimming operation already in progress, or by the maintainer's own backlog is not determinable from the evidence.
 
-**The introduced findings cannot be attributed to cause.** 28 new R15/R17 patterns appear in the re-audit. Whether the v9.1.0 compression introduced them by shortening command bodies, or the re-audit model applies those rules more aggressively than the original model, is not determinable from the available data. Both are plausible; neither is established.
+**The `prs.json` evidence gap.** The automated evidence collector returned an empty `prs.json`. The PR existence is confirmed by the merge commit in `commits.json` and the re-audit diff, but the PR's full URL and diff content are absent from the structured evidence. The issue URL is from `issues.json`; the PR URL is derived from the merge commit message.
 
-**The re-audit measures file-level quality at one point in time; it does not verify that maintainer intent aligns with our rule set.** The maintainer implemented the wiki-lint fix in "compact format to match post-slimming style" — their words, their design choice. NLPM's rules are one lens; the maintainer has their own quality model. The 95/100 score reflects what NLPM can measure, not what the library is designed to optimize for.
+**The re-audit does not prove maintainer intent aligns with our rule set.** The wiki-lint fix was explicitly described as "inspired by the NLPM audit, reimplemented in compact format to match post-slimming style." The maintainer applied the finding selectively and translated it into their own idiom. That is legitimate engineering judgment; it also means the rubric's measurement of "fixed" does not fully capture what the maintainer accepted or rejected.
 
-**The score improvement cannot be isolated to the audit.** The v9.1.0 slimming was a planned compression pass; commit [d9bf8c7](https://github.com/aaron-he-zhu/seo-geo-claude-skills/commit/d9bf8c7c09383a60ef3933f929cbf2d9a7fe05e2) describes a 16-agent review that preceded the merge. The audit may have accelerated it or sharpened its scope; it was not the sole cause.
+**The re-audit measures file-level quality at one point in time.** It does not verify that the library's runtime behavior improved — only that the text representations score higher under the NLPM rubric. Whether commands now execute correctly in practice depends on how agents interpret the declared `allowed-tools`, which the rubric cannot observe.
 
-**prs.json is empty.** The pipeline's PR ledger did not capture any PRs for this repo. PR #10 is documented only through commit messages. This is a tracking gap in the pipeline, not evidence that no PR was filed.
+**32 introduced findings are unresolved.** The re-audit found 32 new findings at HEAD absent from the original audit. They may be regressions from the compression pass or scoring drift from the model. They do not negate the 35-finding improvement, but they indicate the command layer's quality ceiling is higher than 95.
 
 ---
 
 ## Significance
 
-The engagement produced a 4-point score increase (91→95) and closed 35 findings — all within 24 hours of the issue being filed. The compression also surfaced 28 patterns not present in the original audit; the net finding delta is −7, not −35. A 4-point gain is above-average for a post-fix re-audit on a library that started above 90.
+The engagement illustrates a pattern that appears across multiple audited libraries: a polished, high-quality skills layer paired with a weaker command layer — the showroom floor and the loading dock, built by the same hands but visited by different eyes. Skills receive sustained iteration — better triggers, stricter thresholds, richer workflows — while commands are written once to solve an immediate orchestration problem and seldom revisited. The `allowed-tools` field is the specific gap: invisible at authoring time, silent at load time, and critical only when the command tries to call a tool it has not declared.
 
-What makes this engagement unusual is the ratio between the contribution NLPM made (one Bug #1 fix, one issue report) and the response it received (a 7-phase, 12,542-line compression addressing 35 findings across the entire library). This is not a case of a maintainer accepting a patch. It is a case of an audit becoming a catalyst: the bug report gave the maintainer a documented external view of the library's weakest layer, and they used it as the occasion for a systematic overhaul they may have been planning.
+The case is notable for the speed and scope of the maintainer's response. A same-day merge of the critical fix, combined with an independent 34% library compression the same morning, produced an overall score gain from 91 to 95. The library that entered the audit as "approved, conditional on 3 fixes" left it with a skills layer averaging 98.6/100 at re-audit and a clear remaining target in the command layer.
 
-The re-audit confirms that the overhaul worked at the file level. All 35 original findings are gone. The 28 newly surfaced patterns — consistently missing error-handling structure in the command layer — represent the next quality frontier for the library, and they are the kind of patterns that a second engagement could target methodically.
-
-The broader point: at 1,227 stars and 174 forks, `seo-geo-claude-skills` is one of the larger SEO tooling repositories among the Claude Code plugin repositories NLPM has audited. A library at this scale responds to external audit differently than a smaller one. When the maintainer has the capacity for a 16-agent review and a 7-phase compression pass, an audit report functions less as a fix instruction and more as a prioritized signal. The NLPM tooling found the signal. The maintainer didn't just act on it — they used it as the starting line for a sprint that had apparently been queuing up. In open source, that is not a small thing: a bug report becoming a release note.
+The command layer's ceiling is in the 98+ range — the re-audit's open findings suggest it; the skills layer is already there at 98.6. The path runs through two issue types: empty-input handling on 9 commands (R15) and `allowed-tools` declarations on 8 (R12, partially overlapping), plus sequential step numbering on 2 more. Straightforward, mechanical fixes on a library that just cleared 35 of them in a single day. The list is shorter than the proof.
