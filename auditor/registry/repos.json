@@ -5055,7 +5055,10 @@
       "score": null,
       "audit_issue": 197,
       "prs": [],
-      "discovery_strategy": "awesome-list-citation"
+      "discovery_strategy": "awesome-list-citation",
+      "strategy": "single",
+      "security": "BLOCKED",
+      "commit_sha_at_audit": "af4b9cc901826a359bc3f2b50733fefdbe658ba2"
     },
     "ruvnet/ruflo": {
       "discovered": "2026-04-25T01:06:48Z",
@@ -5066,7 +5069,10 @@
       "score": null,
       "audit_issue": 198,
       "prs": [],
-      "discovery_strategy": "awesome-list-citation, topic-tag"
+      "discovery_strategy": "awesome-list-citation, topic-tag",
+      "strategy": "progressive",
+      "security": "UNKNOWN",
+      "commit_sha_at_audit": "01070ede81fa6fbae93d01c347bec1af5d6c17f0"
     },
     "c0x12c/ai-toolkit": {
       "discovered": "2026-04-25T01:06:48Z",
@@ -5099,7 +5105,10 @@
       "score": null,
       "audit_issue": 201,
       "prs": [],
-      "discovery_strategy": "awesome-list-citation"
+      "discovery_strategy": "awesome-list-citation",
+      "strategy": "single",
+      "security": "CLEAR",
+      "commit_sha_at_audit": "5d284f215471c341e0e3d9bb4f9c24bb1345ada1"
     },
     "vectorize-io/hindsight": {
       "discovered": "2026-04-25T01:06:48Z",
@@ -5146,7 +5155,11 @@
       "discovery_strategy": "awesome-list-citation",
       "strategy": "single",
       "security": "CLEAR",
-      "commit_sha_at_audit": "ff1f0256e36c20365c393330cf1017b495996905"
+      "commit_sha_at_audit": "ff1f0256e36c20365c393330cf1017b495996905",
+      "pipeline_prs": [
+        3,
+        4
+      ]
     },
     "0xmariowu/Autosearch": {
       "discovered": "2026-04-25T01:06:48Z",
@@ -5174,7 +5187,8 @@
       "discovery_strategy": "awesome-list-citation",
       "strategy": "single",
       "security": "CLEAR",
-      "commit_sha_at_audit": "b32f196f410c917367bd51887b24336fe065915f"
+      "commit_sha_at_audit": "b32f196f410c917367bd51887b24336fe065915f",
+      "pipeline_prs": []
     },
     "2389-research/simmer": {
       "discovered": "2026-04-25T01:06:48Z",
