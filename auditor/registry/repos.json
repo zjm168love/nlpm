@@ -4865,7 +4865,10 @@
       "discovery_strategy": "awesome-list-citation, topic-tag",
       "strategy": "batched",
       "security": "BLOCKED",
-      "commit_sha_at_audit": "1f66d57a5e1b041b11e49a8cdca275aa472f0131"
+      "commit_sha_at_audit": "1f66d57a5e1b041b11e49a8cdca275aa472f0131",
+      "disclosure_url": "https://github.com/addyosmani/agent-skills/issues/106",
+      "disclosure_filed_at": "2026-04-26T12:26:56Z",
+      "disclosure_filed_by": "manual"
     },
     "agiletec-inc/airis-mcp-gateway": {
       "discovered": "2026-04-25T01:06:48Z",
@@ -4954,7 +4957,10 @@
       "discovery_strategy": "awesome-list-citation",
       "strategy": "batched",
       "security": "BLOCKED",
-      "commit_sha_at_audit": "c0c98d367c55296bfe69e65680625b6db437af02"
+      "commit_sha_at_audit": "c0c98d367c55296bfe69e65680625b6db437af02",
+      "disclosure_url": "https://github.com/eyaltoledano/claude-task-master/issues/1694",
+      "disclosure_filed_at": "2026-04-26T12:26:56Z",
+      "disclosure_filed_by": "manual"
     },
     "iannuttall/claude-agents": {
       "discovered": "2026-04-25T01:06:48Z",
