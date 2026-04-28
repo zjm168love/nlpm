@@ -4483,11 +4483,14 @@
       "stars": 405,
       "artifacts": 10,
       "description": "Claude Code Custom Plugins - Custom plugins for Claude Code CLI",
-      "status": "discovered",
-      "score": null,
+      "status": "audited",
+      "score": 96,
       "audit_issue": 158,
       "prs": [],
-      "discovery_strategy": "recent-pushed-mid-tier"
+      "discovery_strategy": "recent-pushed-mid-tier",
+      "strategy": "batched",
+      "security": "CLEAR",
+      "commit_sha_at_audit": "51ecc703ffbbf02ee83b3cd79e32652937109c4b"
     },
     "uppinote20/claude-dashboard": {
       "discovered": "2026-04-25T01:06:48Z",
@@ -4536,11 +4539,14 @@
       "stars": 9,
       "artifacts": 115,
       "description": "Performance-optimized plugin packaging of GSD (Get Shit Done) for Claude Code. Based on gsd-build/get-shit-done by TACHES.",
-      "status": "discovered",
-      "score": null,
+      "status": "audited",
+      "score": 75,
       "audit_issue": 162,
       "prs": [],
-      "discovery_strategy": "recently-active-any-stars"
+      "discovery_strategy": "recently-active-any-stars",
+      "strategy": "progressive",
+      "security": "UNKNOWN",
+      "commit_sha_at_audit": "eff43133675d41f2498462760ea2b637d4f15f93"
     },
     "navapbc/digital-service-orchestra": {
       "discovered": "2026-04-25T01:06:48Z",
