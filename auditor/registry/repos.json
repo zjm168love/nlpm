@@ -6185,11 +6185,14 @@
       "stars": 16303,
       "artifacts": 22,
       "description": "",
-      "status": "discovered",
-      "score": null,
+      "status": "audited",
+      "score": 90,
       "audit_issue": 216,
       "prs": [],
-      "discovery_strategy": "topic-tag"
+      "discovery_strategy": "topic-tag",
+      "strategy": "batched",
+      "security": "CLEAR",
+      "commit_sha_at_audit": "505a7e10cea80f5da291114db19a4be0e40b9d7e"
     },
     "manaflow-ai/cmux": {
       "discovered": "2026-04-25T01:06:48Z",
