@@ -6678,11 +6678,14 @@
       "stars": 1907,
       "artifacts": 10,
       "description": "A collection of Awesome Finance Agent Skills for free and easy to start | 一系列开源免费的金融分析Agent Skills",
-      "status": "discovered",
-      "score": null,
+      "status": "audited",
+      "score": 92,
       "audit_issue": 223,
       "prs": [],
-      "discovery_strategy": "topic-tag"
+      "discovery_strategy": "topic-tag",
+      "strategy": "single",
+      "security": "CLEAR",
+      "commit_sha_at_audit": "853f09b4d0baae747759ed31e21ed5c5b2316a5f"
     },
     "addyosmani/web-quality-skills": {
       "discovered": "2026-04-25T01:06:48Z",
