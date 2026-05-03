@@ -2253,13 +2253,13 @@
       "prs": [
         {
           "number": 145,
-          "state": "OPEN",
-          "mergedAt": null,
-          "closedAt": null,
+          "state": "MERGED",
+          "mergedAt": "2026-05-03T18:33:01Z",
+          "closedAt": "2026-05-03T18:33:01Z",
           "title": "fix: remove doubled uv prefix in install commands (uv uv pip → uv pip)",
-          "updatedAt": "2026-04-29T22:39:08Z",
+          "updatedAt": "2026-05-03T18:33:01Z",
           "createdAt": "2026-04-25T12:18:45Z",
-          "outcome": "open",
+          "outcome": "merged",
           "fingerprints": [
             "sha256:85a2114ddd0bbc0b1a57803612a39c7e5f7465ece00f99c3d89d0cad4c817fd1",
             "sha256:1e7a6fffcb89db4fca2708db65903ecc09b220a7dec51d93d9e3d71d4dd89830",
@@ -2278,13 +2278,13 @@
         },
         {
           "number": 146,
-          "state": "OPEN",
-          "mergedAt": null,
-          "closedAt": null,
+          "state": "MERGED",
+          "mergedAt": "2026-05-03T18:32:32Z",
+          "closedAt": "2026-05-03T18:32:32Z",
           "title": "fix: correct uv invocation in latchbio-integration install command",
-          "updatedAt": "2026-04-25T12:19:20Z",
+          "updatedAt": "2026-05-03T18:32:32Z",
           "createdAt": "2026-04-25T12:19:20Z",
-          "outcome": "open",
+          "outcome": "merged",
           "fingerprints": [
             "sha256:801c2a9c35dcc5a44abcb504ed34d5ae28a7b91e39c02b67b9088ee08a5e6751"
           ],
