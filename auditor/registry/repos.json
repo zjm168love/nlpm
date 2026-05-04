@@ -1,9 +1,9 @@
 {
   "metadata": {
     "total_contributed": 6,
-    "total_discovered": 185,
+    "total_discovered": 187,
     "total_audited": 12,
-    "last_discovery": "2026-04-29T03:09:01Z"
+    "last_discovery": "2026-05-04T06:59:10Z"
   },
   "repos": {
     "mukul975/Anthropic-Cybersecurity-Skills": {
@@ -7149,6 +7149,26 @@
       "score": 95,
       "discovered": "2026-04-25T01:06:48Z",
       "security": "CLEAR",
+      "prs": []
+    },
+    "glitternetwork/pinme": {
+      "discovered": "2026-05-04T06:59:10Z",
+      "stars": 3188,
+      "artifacts": 5,
+      "description": "Deploy Your Frontend in a Single Command. Claude Code Skills supported.",
+      "status": "discovered",
+      "score": null,
+      "audit_issue": 240,
+      "prs": []
+    },
+    "nexu-io/open-design": {
+      "discovered": "2026-05-04T06:59:10Z",
+      "stars": 20558,
+      "artifacts": 62,
+      "description": "🎨 Local-first, open-source alternative to Anthropic's Claude Design. ⚡ 19 Skills · ✨ 71 brand-grade Design Systems 🖼 Generate web · desktop · mobile prototypes · slides · images · videos · HyperFrames 📦 Sandboxed preview · HTML/PDF/PPTX/MP4 export 🤖 Runs on Claude Code / Codex / Cursor / Gemini / OpenCode / Qwen / Copilot / Hermes / Kimi CLI.",
+      "status": "discovered",
+      "score": null,
+      "audit_issue": 241,
       "prs": []
     }
   }
