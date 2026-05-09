@@ -39,7 +39,12 @@ jobs:
           # was added 2026-05-01 after agent-sh/agnix#828-830: avifenesh closed three of our PRs
           # with "the issue you flagged is real. Closing in favor of the consolidated structural
           # fix in #840" — a clear applied_separately signal that the previous regex didn't catch.
-          APPLIED_PATTERNS='applied in|applied directly|applied to|applied as|merged into|fixed in release|fixed in v|fixed on main|included in|will be in|already in|already fixed|closing in favor of|consolidated.*fix|covered by #[0-9]+|superseded by #[0-9]+|addressed (in|by) #[0-9]+|handled in #[0-9]+|favor of #[0-9]+|will be (addressed|handled|fixed) in'
+          # The "already (been )? resolved|fixed|merged|addressed" + "resolved on (main|...)" group
+          # was added 2026-05-09 after tanweai/pua#154-#155: tanweai closed two of our PRs with
+          # "Closing this PR because the same issue has already been resolved on current main.
+          # Resolution evidence: ..." — explicit applied_separately language plus concrete
+          # citations of the post-fix state, which the previous regex didn't catch.
+          APPLIED_PATTERNS='applied in|applied directly|applied to|applied as|merged into|fixed in release|fixed in v|fixed on main|included in|will be in|already in|already fixed|closing in favor of|consolidated.*fix|covered by #[0-9]+|superseded by #[0-9]+|addressed (in|by) #[0-9]+|handled in #[0-9]+|favor of #[0-9]+|will be (addressed|handled|fixed) in|already (been )?(resolved|fixed|merged|addressed|handled|done)|resolved (in|on) (main|master|trunk|the default|current)|done (in|on) (main|master|trunk)|fixed (in|on) (main|master|trunk|current)|resolution evidence'
           # "rule_adopted" = maintainer opened a hardening/backfill PR that goes beyond our scope.
           # "sibling" intentionally excluded: too generic (e.g. "sibling PRs #123-#125" in
           # a comment about naming conventions is not rule-adoption).
