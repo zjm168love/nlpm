@@ -1,6 +1,8 @@
 # 69,816 Stars, Four Hidden Skills
 
-> **Disclosure**: Written from NLPM audit data on 2026-05-11 and re-verified against the live state of `mattpocock/skills` the same day. The repository's plugin manifest and the affected `SKILL.md` files were inspected directly via `git ls-tree` and `gh api`; star and fork counts come from `GET /repos/mattpocock/skills` at audit time.
+![Cover](images/2026-05-11-mattpocock-skills-cover.webp)
+
+> **Disclosure**: Written from NLPM audit data on 2026-05-11 and re-verified against the live state of `mattpocock/skills` the same day. The repository's plugin manifest and the affected `SKILL.md` files were inspected directly via `git ls-tree` and `gh api`; star and fork counts come from `GET /repos/mattpocock/skills` at audit time. Cover image generated with OpenAI `gpt-image-1` (gpt-image-2 was requested but requires org verification not enabled on this account).
 
 ---
 
