@@ -44,7 +44,7 @@ while IFS= read -r file; do
         .claude-plugin/plugin.json|.claude-plugin/marketplace.json) RELEVANT=1 ;;
         skills/*/SKILL.md|.claude/skills/*/SKILL.md) RELEVANT=1 ;;
         agents/*.md|.claude/agents/*.md) RELEVANT=1 ;;
-        commands/*.md|.claude/commands/*.md|commands/**/*.md|.claude/commands/**/*.md) RELEVANT=1 ;;
+        commands/*.md|.claude/commands/*.md) RELEVANT=1 ;;
         hooks/hooks.json|.claude/hooks.json) RELEVANT=1 ;;
     esac
 done <<< "$STAGED"

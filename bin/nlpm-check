@@ -36,7 +36,7 @@ from pathlib import Path
 from typing import Iterable
 
 
-VERSION = "0.8.5"
+VERSION = "0.8.6"
 
 
 # ----- finding model -----
@@ -153,6 +153,7 @@ def nested_subplugins(plugin_root: Path, all_roots: list[Path]) -> set[Path]:
 # ----- manifest parsing -----
 
 def parse_manifest(path: Path) -> dict:
+    """Load a plugin.json file as a dict. Raises on I/O or JSON errors."""
     with path.open("r", encoding="utf-8") as f:
         return json.load(f)
 
@@ -453,6 +454,7 @@ def check_skill_frontmatter(plugin_root: Path, findings: list[Finding], nested_s
 
 
 def check_agent_frontmatter(plugin_root: Path, findings: list[Finding], nested_skip: set[Path] | None = None) -> None:
+    """Every agent markdown file must have `name` and `description` in its frontmatter."""
     for agent in walk_markdown_in_roots(plugin_root, CANONICAL_AGENT_ROOTS, nested_skip=nested_skip):
         rel = agent.relative_to(plugin_root)
         try:
@@ -639,6 +641,7 @@ def check_plugin(plugin_root: Path, nested_skip: set[Path] | None = None) -> lis
 # ----- output -----
 
 def render_human(findings: list[Finding], plugin_root: Path, strict: bool, quiet: bool) -> None:
+    """Print a human-readable single-plugin report. Grouped HIGH/MEDIUM/LOW."""
     high = [f for f in findings if f.confidence == "high"]
     medium = [f for f in findings if f.confidence == "medium"]
     low = [f for f in findings if f.confidence == "low"]
@@ -666,6 +669,7 @@ def render_human(findings: list[Finding], plugin_root: Path, strict: bool, quiet
 
 
 def render_json(findings: list[Finding], plugin_root: Path) -> None:
+    """Print machine-readable single-plugin JSON. Schema: `mode: 'single'`."""
     payload = {
         "version": VERSION,
         "mode": "single",
@@ -686,6 +690,7 @@ def render_human_multi(
     strict: bool,
     quiet: bool,
 ) -> None:
+    """Print a human-readable multi-plugin report. Aggregate header + per-sub-plugin sections for non-clean plugins."""
     total_high = total_med = total_low = 0
     clean_count = 0
     for _, findings in results:
@@ -732,6 +737,7 @@ def render_json_multi(
     results: list[tuple[Path, list[Finding]]],
     repo_root: Path,
 ) -> None:
+    """Print machine-readable multi-plugin JSON. Schema: `mode: 'multi'` with `plugins[]` array + aggregate `summary`."""
     plugins = []
     total_high = total_med = total_low = 0
     clean_count = 0
