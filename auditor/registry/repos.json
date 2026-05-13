@@ -1438,7 +1438,9 @@
       "artifacts": 6,
       "discovered": "2026-04-25T01:06:48Z",
       "description": "Agent Skills for optimizing web quality based on Lighthouse and Core Web Vitals.",
-      "security": "CLEAR"
+      "security": "CLEAR",
+      "exemplar_published": true,
+      "exemplar_path": "auditor/exemplars/addyosmani-web-quality-skills.md"
     },
     "gsd-build/get-shit-done": {
       "case_study": "case-studies/2026-04-06-how-we-helped-gsd.md",
