@@ -4638,7 +4638,9 @@
       "artifacts": 51,
       "discovered": "2026-04-25T01:06:48Z",
       "description": "Production-ready development workflows for Claude Code, powered by specialized AI agents.",
-      "security": "CLEAR"
+      "security": "CLEAR",
+      "exemplar_published": true,
+      "exemplar_path": "auditor/exemplars/shinpr-claude-code-workflows.md"
     },
     "tw93/Waza": {
       "prs": [],
