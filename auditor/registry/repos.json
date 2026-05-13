@@ -2441,7 +2441,9 @@
       "commit_sha_at_audit": "HEAD-at-2026-05-11",
       "status": "complete",
       "prs": [],
-      "rule_adopted": false
+      "rule_adopted": false,
+      "exemplar_published": true,
+      "exemplar_path": "auditor/exemplars/mattpocock-skills.md"
     },
     "musistudio/claude-code-router": {
       "prs": [
