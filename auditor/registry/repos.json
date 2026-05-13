@@ -4293,7 +4293,9 @@
       "discovered": "2026-04-13T06:41:48Z",
       "rule_adopted": false,
       "description": "Curated plugin marketplace for AI agents - works with Claude Code, Codex, and openskills",
-      "security": "REVIEW"
+      "security": "REVIEW",
+      "exemplar_published": true,
+      "exemplar_path": "auditor/exemplars/numman-ali-n-skills.md"
     },
     "anthropics/claude-plugins-official": {
       "prs": [
