@@ -3013,7 +3013,9 @@
       "artifacts": 7,
       "discovered": "2026-04-25T01:06:48Z",
       "description": "Design engineering for Claude Code. Craft, memory, and enforcement for consistent UI.",
-      "security": "CLEAR"
+      "security": "CLEAR",
+      "exemplar_published": true,
+      "exemplar_path": "auditor/exemplars/Dammyjay93-interface-design.md"
     },
     "888wing/codetape": {
       "prs": [
