@@ -32,6 +32,26 @@ jobs:
         with:
           persist-credentials: false
 
+      - name: Ensure pipeline labels exist
+        # `gh issue edit --add-label` fails silently if the label doesn't
+        # exist on the repo. The 2026-05-13 v0.8.18 deploy hit this: 48
+        # exemplar candidates got "WARNING: failed to label" because
+        # case-study-clean had never been created. Each label is created
+        # idempotently — `|| true` on the create call swallows the "label
+        # already exists" error so this step is a no-op on subsequent runs.
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          for entry in \
+            "case-study-clean:0e8a16:Audit clean (score >=90, security != BLOCKED) — fires auditor-exemplar.yml" \
+            "exemplar-published:1d76db:Exemplar artifact written to auditor/exemplars/<slug>.md"; do
+            name="${entry%%:*}"
+            rest="${entry#*:}"
+            color="${rest%%:*}"
+            desc="${rest#*:}"
+            gh label create "$name" --color "$color" --description "$desc" 2>/dev/null || true
+          done
+
       - name: Batch processor
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
