@@ -7561,7 +7561,9 @@
       "discovery_strategy": "manual-batch-2026-05-12",
       "strategy": "single",
       "security": "CLEAR",
-      "commit_sha_at_audit": "2c606141936f1eeef17fa3043a72095b4765b9c2"
+      "commit_sha_at_audit": "2c606141936f1eeef17fa3043a72095b4765b9c2",
+      "exemplar_published": true,
+      "exemplar_path": "auditor/exemplars/forrestchang-andrej-karpathy-skills.md"
     },
     "shareAI-lab/learn-claude-code": {
       "discovered": "2026-05-12T07:02:20Z",
