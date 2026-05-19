@@ -1,0 +1,16 @@
+/* Wider content area for the dashboard page only.
+   VitePress's default .vp-doc container max-width (~688px when aside
+   is off, ~712px with aside) is the wrong shape for a dashboard with
+   211-row tables and 25-bar charts. Override for this specific page. */
+.VPDoc.has-sidebar:has(.vp-doc._dashboard-vue) .container {
+  max-width: 1400px;
+}
+.VPDoc.has-sidebar:has(.vp-doc._dashboard-vue) .content {
+  max-width: 100%;
+}
+.VPDoc.has-sidebar:has(.vp-doc._dashboard-vue) .content-container {
+  max-width: 100%;
+}
+.vp-doc._dashboard-vue {
+  max-width: 100%;
+}

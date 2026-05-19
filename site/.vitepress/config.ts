@@ -137,6 +137,17 @@ export default withMermaid(defineConfig({
           ],
         },
       ],
+      '/dashboard-vue': [
+        {
+          text: 'Cross-repo aggregate',
+          items: [
+            { text: 'Repos', link: '/dashboard-vue#repos' },
+            { text: 'Rule distribution', link: '/dashboard-vue#rules' },
+            { text: 'Drift network', link: '/dashboard-vue#drift' },
+            { text: 'Activity timeline', link: '/dashboard-vue#activity' },
+          ],
+        },
+      ],
     },
 
     socialLinks: [

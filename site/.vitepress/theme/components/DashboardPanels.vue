@@ -219,7 +219,7 @@ const activityLegend = computed<Array<{ name: string; color: string; total: numb
     </header>
 
     <!-- Repos table -->
-    <section class="panel">
+    <section class="panel" id="repos">
       <h3>Audited repos</h3>
       <p class="hint">One row per repo. Click a column header to sort. The repo name links into the per-repo report.</p>
       <div class="table-wrap">
@@ -256,7 +256,7 @@ const activityLegend = computed<Array<{ name: string; color: string; total: numb
     </section>
 
     <!-- Rule distribution -->
-    <section class="panel">
+    <section class="panel" id="rules">
       <h3>Rule distribution across all audits</h3>
       <p class="hint">Top rules by total occurrence. Labels read bottom-left → top-right.</p>
       <div v-if="rules.length === 0" class="empty">No findings logged yet.</div>
@@ -285,7 +285,7 @@ const activityLegend = computed<Array<{ name: string; color: string; total: numb
     </section>
 
     <!-- Cross-repo drift network -->
-    <section class="panel">
+    <section class="panel" id="drift">
       <h3>Cross-repo vocabulary drift network</h3>
       <p class="hint">Term nodes; edges connect terms that co-cluster across repos. Hubs = terms drifting across the ecosystem.</p>
       <div ref="driftEl" class="g6-frame drift-frame">
@@ -296,7 +296,7 @@ const activityLegend = computed<Array<{ name: string; color: string; total: numb
     </section>
 
     <!-- Activity timeline -->
-    <section class="panel">
+    <section class="panel" id="activity">
       <h3>Activity timeline</h3>
       <p class="hint">Daily event counts from <code>auditor/logs/events.jsonl</code>.</p>
       <div ref="activityEl" class="g6-frame">

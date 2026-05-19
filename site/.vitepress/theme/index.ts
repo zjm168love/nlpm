@@ -3,6 +3,7 @@
 // any Markdown page via <DashboardPanels :data="..." />.
 import DefaultTheme from 'vitepress/theme'
 import DashboardPanels from './components/DashboardPanels.vue'
+import './custom.css'
 import type { Theme } from 'vitepress'
 
 export default {

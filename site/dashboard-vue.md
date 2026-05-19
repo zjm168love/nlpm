@@ -1,6 +1,5 @@
 ---
 title: Auditor dashboard
-sidebar: false
 aside: false
 ---
 
