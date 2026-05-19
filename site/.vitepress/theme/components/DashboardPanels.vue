@@ -238,7 +238,7 @@ const activityLegend = computed<Array<{ name: string; color: string; total: numb
           </thead>
           <tbody>
             <tr v-for="r in sortedRows" :key="r.repo">
-              <td><a :href="`/${slugFor(r.repo)}.html`"><code>{{ r.repo }}</code></a></td>
+              <td><a :href="`/reports/${slugFor(r.repo)}`"><code>{{ r.repo }}</code></a></td>
               <td>{{ r.status ?? '—' }}</td>
               <td>{{ r.stars ?? '—' }}</td>
               <td>{{ r.score ?? '—' }}</td>

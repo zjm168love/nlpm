@@ -103,7 +103,7 @@ export default withMermaid(defineConfig({
           {
             text: 'Audit data',
             items: [
-              { text: 'Dashboard', link: '/dashboard-vue' },
+              { text: 'Dashboard', link: '/dashboard' },
               { text: 'NLPM self-audit', link: '/reports/xiaolai-nlpm-for-claude' },
               { text: 'Featured audits', link: '/featured-audits' },
             ],
@@ -138,14 +138,14 @@ export default withMermaid(defineConfig({
           ],
         },
       ],
-      '/dashboard-vue': [
+      '/dashboard': [
         {
           text: 'Cross-repo aggregate',
           items: [
-            { text: 'Repos', link: '/dashboard-vue#repos' },
-            { text: 'Rule distribution', link: '/dashboard-vue#rules' },
-            { text: 'Drift network', link: '/dashboard-vue#drift' },
-            { text: 'Activity timeline', link: '/dashboard-vue#activity' },
+            { text: 'Repos', link: '/dashboard#repos' },
+            { text: 'Rule distribution', link: '/dashboard#rules' },
+            { text: 'Drift network', link: '/dashboard#drift' },
+            { text: 'Activity timeline', link: '/dashboard#activity' },
           ],
         },
       ],

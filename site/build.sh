@@ -1,11 +1,19 @@
 #!/usr/bin/env bash
 # Build nlpm.com.
 #
-# 1. Re-generate the reference Markdown from canonical SKILL.md sources.
-# 2. Sync auditor outputs (dashboard + per-repo HTMLs + assets + vendor +
-#    legacy single-page docs/) into site/public/ as static passthrough.
-# 3. Run `pnpm build` (VitePress).
-# 4. Write CNAME into the build output so GitHub Pages knows the domain.
+# 1. pnpm install (Vite needs node_modules early).
+# 2. Re-generate the reference Markdown from canonical SKILL.md sources.
+# 3. Sync case studies from /case-studies/ into site/case-studies/.
+# 4. Copy JSON report sidecars from auditor/reports/*.json into
+#    site/.vitepress/theme/data/{dashboard.json,reports/*.json}.
+# 5. Generate one site/reports/<slug>.md per JSON sidecar; each mounts
+#    <RepoReport> with its JSON data inline.
+# 6. Vendor Lucide icons + write CNAME into site/public/ — these are
+#    the only things in public/ now. The static dashboard.html and the
+#    210 per-repo HTML files used to live here too, but VitePress's
+#    Vue pages at /dashboard and /reports/<slug> are the canonical
+#    online versions.
+# 7. Run `pnpm build` (VitePress).
 #
 # Output: site/.vitepress/dist/
 set -euo pipefail
@@ -38,18 +46,13 @@ else
   echo "(no case-studies/ source — skipping)"
 fi
 
-echo "==> Syncing auditor outputs into site/public/"
+echo "==> Resetting site/public/"
+# public/ holds only assets the VitePress build can't generate itself:
+# CNAME for GitHub Pages and the vendored Lucide icons. The 210 static
+# audit HTMLs that used to live here are gone — their content is now
+# served via VitePress at /dashboard and /reports/<slug>.
 rm -rf "$PUBLIC"
 mkdir -p "$PUBLIC"
-# Copy everything from auditor/reports/ except the markdown daily reports.
-# Per-repo HTMLs land at /<slug>.html; dashboard at /dashboard.html;
-# legacy framework guide at /docs/index.html; assets/ and vendor/ shared.
-( cd "$SRC_REPORTS" && find . -maxdepth 1 -mindepth 1 \
-    \( -name '*.html' -o -name '*.json' -o -type d \) \
-    -not -name 'dashboard.html.bak' \
-    -exec cp -R {} "$PUBLIC/" \; )
-
-# CNAME so GitHub Pages binds the custom domain.
 echo "nlpm.com" > "$PUBLIC/CNAME"
 
 echo "==> Copying JSON report data into site/.vitepress/theme/data/"

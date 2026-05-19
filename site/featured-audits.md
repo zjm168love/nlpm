@@ -7,7 +7,7 @@ aside: false
 
 A curated subset of the 210+ external repositories NLPM has audited — picked for **institutional credibility** (OpenAI, Google, CNCF), **scale** (10k+ stars), or **engagement** (merged PRs from the contribute pipeline, often paired with a case-study article). Each entry links to its full per-repo report, every merged PR we filed, and the long-form article when one exists.
 
-For the complete data set, see the [dashboard](/dashboard-vue).
+For the complete data set, see the [dashboard](/dashboard).
 
 ## 1. openai/codex-plugin-cc
 
@@ -93,6 +93,6 @@ CNCF cloud-native platform. Audit score 89/100, security REVIEW. Five PRs merged
 ## See also
 
 - [NLPM self-audit](/reports/xiaolai-nlpm-for-claude) — NLPM at 100/100 against its own rule set
-- [Full dashboard](/dashboard-vue) — every audited repo, sortable
+- [Full dashboard](/dashboard) — every audited repo, sortable
 - [Case studies](/case-studies/) — long-form articles, 29 total
 - [Framework reference](/reference/) — the rules, principles, and vocabulary that produced these findings

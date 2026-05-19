@@ -2,16 +2,16 @@
    VitePress's default .vp-doc container max-width (~688px when aside
    is off, ~712px with aside) is the wrong shape for a dashboard with
    211-row tables and 25-bar charts. Override for this specific page. */
-.VPDoc.has-sidebar:has(.vp-doc._dashboard-vue) .container {
+.VPDoc.has-sidebar:has(.vp-doc._dashboard) .container {
   max-width: 1400px;
 }
-.VPDoc.has-sidebar:has(.vp-doc._dashboard-vue) .content {
+.VPDoc.has-sidebar:has(.vp-doc._dashboard) .content {
   max-width: 100%;
 }
-.VPDoc.has-sidebar:has(.vp-doc._dashboard-vue) .content-container {
+.VPDoc.has-sidebar:has(.vp-doc._dashboard) .content-container {
   max-width: 100%;
 }
-.vp-doc._dashboard-vue {
+.vp-doc._dashboard {
   max-width: 100%;
 }
 
@@ -19,7 +19,7 @@
    prose pages have visual section breaks. Inside the dashboard each
    heading is already framed by its own .panel border — the doc-style
    line is redundant. Drop it for the report pages. */
-.vp-doc._dashboard-vue :is(h1, h2, h3),
+.vp-doc._dashboard :is(h1, h2, h3),
 .vp-doc[class*="_reports_"] :is(h1, h2, h3, h4) {
   border-top: none;
   padding-top: 0;
