@@ -231,7 +231,7 @@
     },
     "BUG-missing-frontmatter": {
       "total_hits": 200,
-      "led_to_merged_pr": 0,
+      "led_to_merged_pr": 14,
       "led_to_rejected_pr": 4,
       "self_false_positive": 0,
       "maintainer_rejected": 3,
@@ -387,7 +387,7 @@
     },
     "CC-stale-count": {
       "total_hits": 45,
-      "led_to_merged_pr": 0,
+      "led_to_merged_pr": 1,
       "led_to_rejected_pr": 0,
       "self_false_positive": 0,
       "maintainer_rejected": 4,
@@ -530,8 +530,8 @@
     },
     "SEC-unpinned-semver": {
       "total_hits": 101,
-      "led_to_merged_pr": 0,
-      "led_to_rejected_pr": 4,
+      "led_to_merged_pr": 1,
+      "led_to_rejected_pr": 5,
       "self_false_positive": 0,
       "maintainer_rejected": 4,
       "downstream_suppressions": 0,
@@ -660,7 +660,7 @@
     },
     "SEC-postinstall-script": {
       "total_hits": 25,
-      "led_to_merged_pr": 0,
+      "led_to_merged_pr": 1,
       "led_to_rejected_pr": 0,
       "self_false_positive": 3,
       "maintainer_rejected": 0,
@@ -3872,7 +3872,7 @@
     "BUG-duplicate-entries": {
       "total_hits": 1,
       "led_to_merged_pr": 0,
-      "led_to_rejected_pr": 0,
+      "led_to_rejected_pr": 1,
       "self_false_positive": 0,
       "maintainer_rejected": 0,
       "downstream_suppressions": 0,
@@ -3927,10 +3927,10 @@
     "last_updated": "2026-04-10",
     "total_events": 16,
     "total_audits": 10,
-    "total_prs_submitted": 278,
-    "total_prs_merged": 98,
-    "total_prs_rejected": 49,
+    "total_prs_submitted": 285,
+    "total_prs_merged": 101,
+    "total_prs_rejected": 53,
     "total_prs_applied_separately": 20,
-    "updated_at": "2026-05-25T22:22:21.007538Z"
+    "updated_at": "2026-05-26T22:29:12.358983Z"
   }
 }
