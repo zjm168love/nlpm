@@ -395,7 +395,7 @@
           "mergedAt": null,
           "closedAt": "2026-05-26T09:28:43Z",
           "title": "fix: pin chrome-devtools-mcp npx version in plugin.json",
-          "updatedAt": "2026-05-26T09:28:44Z",
+          "updatedAt": "2026-06-02T20:42:25Z",
           "createdAt": "2026-05-26T07:18:10Z",
           "outcome": "rejected",
           "fingerprints": [
@@ -7258,13 +7258,13 @@
       "prs": [
         {
           "number": 9,
-          "state": "OPEN",
-          "mergedAt": null,
-          "closedAt": null,
+          "state": "MERGED",
+          "mergedAt": "2026-06-04T13:31:26Z",
+          "closedAt": "2026-06-04T13:31:26Z",
           "title": "fix: add missing name field to all 20 command frontmatter blocks",
-          "updatedAt": "2026-04-25T18:28:21Z",
+          "updatedAt": "2026-06-04T13:31:27Z",
           "createdAt": "2026-04-25T18:28:18Z",
-          "outcome": "open",
+          "outcome": "merged",
           "fingerprints": [
             "sha256:341062493ffb42b377b32c8bcceb3e2e6ed2e97ff0fd450b6420a15eb3452837"
           ],
@@ -7275,13 +7275,13 @@
         },
         {
           "number": 10,
-          "state": "OPEN",
-          "mergedAt": null,
-          "closedAt": null,
+          "state": "MERGED",
+          "mergedAt": "2026-06-04T13:14:08Z",
+          "closedAt": "2026-06-04T13:14:08Z",
           "title": "fix: add allowed-tools: Task to 14 agent-dispatch commands",
-          "updatedAt": "2026-04-25T18:29:17Z",
+          "updatedAt": "2026-06-04T13:14:08Z",
           "createdAt": "2026-04-25T18:29:17Z",
-          "outcome": "open",
+          "outcome": "merged",
           "fingerprints": [
             "sha256:6f6a38c86963d5c5bc001a83b5591a85c93ee59b78ff6bf399d118bedcf36fa0"
           ],
@@ -7292,13 +7292,13 @@
         },
         {
           "number": 11,
-          "state": "OPEN",
+          "state": "CLOSED",
           "mergedAt": null,
-          "closedAt": null,
+          "closedAt": "2026-06-04T13:14:20Z",
           "title": "fix: shadcn-ui-builder — add Bash tool and replace unresolvable MCP reference",
-          "updatedAt": "2026-04-25T18:30:12Z",
+          "updatedAt": "2026-06-04T13:14:20Z",
           "createdAt": "2026-04-25T18:30:12Z",
-          "outcome": "open",
+          "outcome": "rejected",
           "fingerprints": [
             "sha256:7541c23f3472a35b089014d1815a2d75588e31332b83b968287673256da300b6",
             "sha256:ee487613d6a3603a4df81b546895c0c0b650d90f85bcefef77d8102cec327206"
@@ -7314,8 +7314,9 @@
       "score": 78,
       "security": "REVIEW",
       "stars": 189,
-      "status": "contributed",
-      "strategy": "batched"
+      "status": "tracked",
+      "strategy": "batched",
+      "case_study_candidate": true
     },
     "wecode-ai/Wegent": {
       "artifacts": 11,
