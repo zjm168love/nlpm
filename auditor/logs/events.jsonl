@@ -2507,3 +2507,4 @@
 {"timestamp":"2026-06-13T20:41:28Z","workflow":"case-study","event":"no_narrative","run_id":"27478506823","run_number":283,"data":{"repo":"wuji-labs/nopua","reason":"thin narrative: score=80, security=CLEAR, merged=0, applied_separately=0, rejected=0, rule_adopted=False"}}
 {"timestamp":"2026-06-13T22:23:07Z","workflow":"daily-report","event":"report_generated","run_id":"27480877810","run_number":71,"data":{"total_repos":219}}
 {"timestamp":"2026-06-13T22:49:23Z","workflow":"dashboard","event":"dashboard_rendered","run_id":"27481452388","run_number":27,"data":{"repos":219,"findings":3385,"advisories":22}}
+{"timestamp":"2026-06-14T00:30:25Z","workflow":"suppressions","event":"scan_complete","run_id":"27483530220","run_number":8,"data":{"candidates":2,"emitted":2,"skipped_self":1,"skipped_dup":0,"skipped_no_overrides":0,"search_ok":true}}
