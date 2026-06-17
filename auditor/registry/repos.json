@@ -1,9 +1,9 @@
 {
   "metadata": {
-    "last_discovery": "2026-06-15T07:52:48Z",
+    "last_discovery": "2026-06-17T23:31:27Z",
     "total_audited": 12,
     "total_contributed": 6,
-    "total_discovered": 206
+    "total_discovered": 219
   },
   "repos": {
     "0xfurai/claude-code-subagents": {
@@ -7987,6 +7987,136 @@
       "status": "discovered",
       "score": null,
       "audit_issue": 362,
+      "prs": []
+    },
+    "AKCodez/hackingtool-plugin": {
+      "discovered": "2026-06-17T23:31:27Z",
+      "stars": 766,
+      "artifacts": 2,
+      "description": "Claude Code plugin: 183+ pentesting & OSINT tools from Z4nzu/hackingtool. Auto-runs what it can, hands off the rest.",
+      "status": "discovered",
+      "score": null,
+      "audit_issue": 379,
+      "prs": []
+    },
+    "CoderGamester/mcp-unity": {
+      "discovered": "2026-06-17T23:31:27Z",
+      "stars": 1779,
+      "artifacts": 1,
+      "description": "Model Context Protocol (MCP) plugin to connect with Unity Editor — designed for Cursor, Claude Code, Codex, Windsurf and other IDEs",
+      "status": "discovered",
+      "score": null,
+      "audit_issue": 380,
+      "prs": []
+    },
+    "Enderfga/claw-orchestrator": {
+      "discovered": "2026-06-17T23:31:27Z",
+      "stars": 508,
+      "artifacts": 3,
+      "description": "Run Claude Code, Codex, Gemini, Cursor Agent and custom coding CLIs as one unified runtime for claw-style agent systems. Runs standalone, with first-class OpenClaw plugin support.",
+      "status": "discovered",
+      "score": null,
+      "audit_issue": 381,
+      "prs": []
+    },
+    "Kamalnrf/claude-plugins": {
+      "discovered": "2026-06-17T23:31:27Z",
+      "stars": 519,
+      "artifacts": 1,
+      "description": "Lightweight registry to discover, install, and manage all public Claude plugins and agent skills for your favourite AI coding agent.",
+      "status": "discovered",
+      "score": null,
+      "audit_issue": 382,
+      "prs": []
+    },
+    "Master-cai/Research-Paper-Writing-Skills": {
+      "discovered": "2026-06-17T23:31:27Z",
+      "stars": 3987,
+      "artifacts": 1,
+      "description": "Skill package for ML/CV/NLP paper writing, curated and adapted from Prof. Peng Sida's open notes for Codex, Claude Code, and Gemini.",
+      "status": "discovered",
+      "score": null,
+      "audit_issue": 383,
+      "prs": []
+    },
+    "YishenTu/claudian": {
+      "discovered": "2026-06-17T23:31:27Z",
+      "stars": 12895,
+      "artifacts": 1,
+      "description": "An Obsidian plugin that embeds Claude Code/Codex as an AI collaborator in your vault",
+      "status": "discovered",
+      "score": null,
+      "audit_issue": 384,
+      "prs": []
+    },
+    "blader/humanizer": {
+      "discovered": "2026-06-17T23:31:27Z",
+      "stars": 24726,
+      "artifacts": 1,
+      "description": "Claude Code skill that removes signs of AI-generated writing from text",
+      "status": "discovered",
+      "score": null,
+      "audit_issue": 385,
+      "prs": []
+    },
+    "eze-is/web-access": {
+      "discovered": "2026-06-17T23:31:27Z",
+      "stars": 7686,
+      "artifacts": 1,
+      "description": "给 Claude Code 装上完整联网能力的 skill：三层通道调度 + 浏览器 CDP + 并行分治",
+      "status": "discovered",
+      "score": null,
+      "audit_issue": 386,
+      "prs": []
+    },
+    "kingbootoshi/cartographer": {
+      "discovered": "2026-06-17T23:31:27Z",
+      "stars": 590,
+      "artifacts": 2,
+      "description": "Claude Code plugin that maps and documents codebases of any size using parallel AI subagents",
+      "status": "discovered",
+      "score": null,
+      "audit_issue": 387,
+      "prs": []
+    },
+    "multica-ai/andrej-karpathy-skills": {
+      "discovered": "2026-06-17T23:31:27Z",
+      "stars": 177619,
+      "artifacts": 2,
+      "description": "A single CLAUDE.md file to improve Claude Code behavior, derived from Andrej Karpathy's observations on LLM coding pitfalls.",
+      "status": "discovered",
+      "score": null,
+      "audit_issue": 388,
+      "prs": []
+    },
+    "quant-sentiment-ai/claude-equity-research": {
+      "discovered": "2026-06-17T23:31:27Z",
+      "stars": 574,
+      "artifacts": 3,
+      "description": "🔌 Claude Code Plugin for institutional-grade equity research.   Install with /plugin marketplace add. Generates professional   buy/sell recommendations with comprehensive fundamental   analysis, technical indicators, and risk assessment. Educational    use only - not financial advice.",
+      "status": "discovered",
+      "score": null,
+      "audit_issue": 389,
+      "prs": []
+    },
+    "teng-lin/notebooklm-py": {
+      "discovered": "2026-06-17T23:31:27Z",
+      "stars": 16576,
+      "artifacts": 1,
+      "description": "Unofficial Python API and agentic skill for Google NotebookLM. Full programmatic access to NotebookLM's features—including capabilities the web UI doesn't expose—via Python, CLI, and AI agents like Claude Code, Codex, and OpenClaw.",
+      "status": "discovered",
+      "score": null,
+      "audit_issue": 390,
+      "prs": []
+    },
+    "zscole/adversarial-spec": {
+      "discovered": "2026-06-17T23:31:27Z",
+      "stars": 549,
+      "artifacts": 2,
+      "description": "A Claude Code plugin that iteratively refines product specifications by debating between multiple LLMs until all models reach consensus.",
+      "status": "discovered",
+      "score": null,
+      "audit_issue": 391,
       "prs": []
     }
   }
