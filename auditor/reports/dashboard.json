@@ -1,8 +1,8 @@
 {
-  "generated_at": "2026-06-17T22:59:43Z",
+  "generated_at": "2026-06-18T23:07:04Z",
   "since": null,
   "summary": {
-    "total_repos": 220,
+    "total_repos": 233,
     "total_findings": 3385,
     "high_findings": 283,
     "total_advisories": 22,
@@ -1548,6 +1548,18 @@
       "vocab_drift_high": 0
     },
     {
+      "repo": "AKCodez/hackingtool-plugin",
+      "status": "discovered",
+      "stars": 766,
+      "score": null,
+      "security": null,
+      "total_findings": 0,
+      "high_findings": 0,
+      "medium_findings": 0,
+      "vocab_drift_count": 0,
+      "vocab_drift_high": 0
+    },
+    {
       "repo": "AgriciDaniel/claude-ads",
       "status": "contributed",
       "stars": 2377,
@@ -1608,6 +1620,18 @@
       "vocab_drift_high": 0
     },
     {
+      "repo": "CoderGamester/mcp-unity",
+      "status": "discovered",
+      "stars": 1779,
+      "score": null,
+      "security": null,
+      "total_findings": 0,
+      "high_findings": 0,
+      "medium_findings": 0,
+      "vocab_drift_count": 0,
+      "vocab_drift_high": 0
+    },
+    {
       "repo": "ComposioHQ/awesome-claude-plugins",
       "status": "contributed",
       "stars": null,
@@ -1625,6 +1649,18 @@
       "stars": null,
       "score": 82,
       "security": "CLEAR",
+      "total_findings": 0,
+      "high_findings": 0,
+      "medium_findings": 0,
+      "vocab_drift_count": 0,
+      "vocab_drift_high": 0
+    },
+    {
+      "repo": "Enderfga/claw-orchestrator",
+      "status": "discovered",
+      "stars": 508,
+      "score": null,
+      "security": null,
       "total_findings": 0,
       "high_findings": 0,
       "medium_findings": 0,
@@ -1704,6 +1740,18 @@
       "vocab_drift_high": 0
     },
     {
+      "repo": "Kamalnrf/claude-plugins",
+      "status": "discovered",
+      "stars": 519,
+      "score": null,
+      "security": null,
+      "total_findings": 0,
+      "high_findings": 0,
+      "medium_findings": 0,
+      "vocab_drift_count": 0,
+      "vocab_drift_high": 0
+    },
+    {
       "repo": "LerianStudio/ring",
       "status": "audited",
       "stars": 174,
@@ -1721,6 +1769,18 @@
       "stars": null,
       "score": 86,
       "security": "CLEAR",
+      "total_findings": 0,
+      "high_findings": 0,
+      "medium_findings": 0,
+      "vocab_drift_count": 0,
+      "vocab_drift_high": 0
+    },
+    {
+      "repo": "Master-cai/Research-Paper-Writing-Skills",
+      "status": "discovered",
+      "stars": 3987,
+      "score": null,
+      "security": null,
       "total_findings": 0,
       "high_findings": 0,
       "medium_findings": 0,
@@ -1805,6 +1865,18 @@
       "stars": 29671,
       "score": 80,
       "security": "REVIEW",
+      "total_findings": 0,
+      "high_findings": 0,
+      "medium_findings": 0,
+      "vocab_drift_count": 0,
+      "vocab_drift_high": 0
+    },
+    {
+      "repo": "YishenTu/claudian",
+      "status": "discovered",
+      "stars": 12895,
+      "score": null,
+      "security": null,
       "total_findings": 0,
       "high_findings": 0,
       "medium_findings": 0,
@@ -1911,6 +1983,18 @@
       "repo": "anthropics/skills",
       "status": "policy_denied",
       "stars": 123447,
+      "score": null,
+      "security": null,
+      "total_findings": 0,
+      "high_findings": 0,
+      "medium_findings": 0,
+      "vocab_drift_count": 0,
+      "vocab_drift_high": 0
+    },
+    {
+      "repo": "blader/humanizer",
+      "status": "discovered",
+      "stars": 24726,
       "score": null,
       "security": null,
       "total_findings": 0,
@@ -2076,6 +2160,18 @@
       "vocab_drift_high": 0
     },
     {
+      "repo": "eze-is/web-access",
+      "status": "discovered",
+      "stars": 7686,
+      "score": null,
+      "security": null,
+      "total_findings": 0,
+      "high_findings": 0,
+      "medium_findings": 0,
+      "vocab_drift_count": 0,
+      "vocab_drift_high": 0
+    },
+    {
       "repo": "fcakyon/claude-codex-settings",
       "status": "contributed",
       "stars": 590,
@@ -2232,6 +2328,18 @@
       "vocab_drift_high": 0
     },
     {
+      "repo": "kingbootoshi/cartographer",
+      "status": "discovered",
+      "stars": 590,
+      "score": null,
+      "security": null,
+      "total_findings": 0,
+      "high_findings": 0,
+      "medium_findings": 0,
+      "vocab_drift_count": 0,
+      "vocab_drift_high": 0
+    },
+    {
       "repo": "luongnv89/claude-howto",
       "status": "complete",
       "stars": 27150,
@@ -2261,6 +2369,18 @@
       "stars": 4317,
       "score": 79,
       "security": "REVIEW",
+      "total_findings": 0,
+      "high_findings": 0,
+      "medium_findings": 0,
+      "vocab_drift_count": 0,
+      "vocab_drift_high": 0
+    },
+    {
+      "repo": "multica-ai/andrej-karpathy-skills",
+      "status": "discovered",
+      "stars": 177619,
+      "score": null,
+      "security": null,
       "total_findings": 0,
       "high_findings": 0,
       "medium_findings": 0,
@@ -2309,6 +2429,18 @@
       "stars": null,
       "score": 93,
       "security": "REVIEW",
+      "total_findings": 0,
+      "high_findings": 0,
+      "medium_findings": 0,
+      "vocab_drift_count": 0,
+      "vocab_drift_high": 0
+    },
+    {
+      "repo": "quant-sentiment-ai/claude-equity-research",
+      "status": "discovered",
+      "stars": 574,
+      "score": null,
+      "security": null,
       "total_findings": 0,
       "high_findings": 0,
       "medium_findings": 0,
@@ -2441,6 +2573,18 @@
       "stars": null,
       "score": 93,
       "security": "CLEAR",
+      "total_findings": 0,
+      "high_findings": 0,
+      "medium_findings": 0,
+      "vocab_drift_count": 0,
+      "vocab_drift_high": 0
+    },
+    {
+      "repo": "teng-lin/notebooklm-py",
+      "status": "discovered",
+      "stars": 16576,
+      "score": null,
+      "security": null,
       "total_findings": 0,
       "high_findings": 0,
       "medium_findings": 0,
@@ -2633,6 +2777,18 @@
       "stars": 3921,
       "score": 86,
       "security": "CLEAR",
+      "total_findings": 0,
+      "high_findings": 0,
+      "medium_findings": 0,
+      "vocab_drift_count": 0,
+      "vocab_drift_high": 0
+    },
+    {
+      "repo": "zscole/adversarial-spec",
+      "status": "discovered",
+      "stars": 549,
+      "score": null,
+      "security": null,
       "total_findings": 0,
       "high_findings": 0,
       "medium_findings": 0,
@@ -4002,6 +4158,16 @@
     },
     {
       "day": "2026-06-17",
+      "counts": {
+        "status_check": 6,
+        "classifications_emitted": 1,
+        "report_generated": 1,
+        "dashboard_rendered": 1,
+        "search_complete": 2
+      }
+    },
+    {
+      "day": "2026-06-18",
       "counts": {
         "status_check": 6,
         "classifications_emitted": 1,
