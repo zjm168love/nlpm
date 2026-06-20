@@ -3168,12 +3168,15 @@
     "data-goblin/power-bi-agentic-development": {
       "artifacts": 47,
       "audit_issue": 362,
+      "commit_sha_at_audit": "9704f1d00f37f3d79a5d65b618571d0088ce6478",
       "description": "Power BI AI skills and Power BI agents for Claude Code and GitHub Copilot: a plugin marketplace of Power BI skills, subagents, and hooks for semantic models, DAX, TMDL, reports, and AI dashboards. Includes Microsoft Fabric skills and Fabric agents. Weekly updates.",
       "discovered": "2026-06-15T07:52:48Z",
       "prs": [],
-      "score": null,
+      "score": 95,
+      "security": "UNKNOWN",
       "stars": 698,
-      "status": "discovered"
+      "status": "audited",
+      "strategy": "batched"
     },
     "davepoon/buildwithclaude": {
       "score": 77,
