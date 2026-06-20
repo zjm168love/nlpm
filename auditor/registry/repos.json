@@ -2903,7 +2903,9 @@
       "security": "CLEAR",
       "stars": 24726,
       "status": "audited",
-      "strategy": "single"
+      "strategy": "single",
+      "exemplar_published": true,
+      "exemplar_path": "auditor/exemplars/blader-humanizer.md"
     },
     "breaking-brake/cc-wf-studio": {
       "artifacts": 5,
