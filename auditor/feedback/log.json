@@ -183,7 +183,7 @@
       "led_to_rejected_pr": 0,
       "self_false_positive": 0,
       "maintainer_rejected": 0,
-      "downstream_suppressions": 3,
+      "downstream_suppressions": 4,
       "verified_fixed": 0,
       "verified_persists": 0,
       "verify_rate": null,
@@ -234,7 +234,7 @@
       "led_to_merged_pr": 16,
       "led_to_rejected_pr": 5,
       "self_false_positive": 0,
-      "maintainer_rejected": 3,
+      "maintainer_rejected": 4,
       "downstream_suppressions": 0,
       "verified_fixed": 29,
       "verified_persists": 0,
@@ -351,7 +351,7 @@
       "led_to_merged_pr": 1,
       "led_to_rejected_pr": 2,
       "self_false_positive": 0,
-      "maintainer_rejected": 0,
+      "maintainer_rejected": 1,
       "downstream_suppressions": 0,
       "verified_fixed": 18,
       "verified_persists": 0,
@@ -539,7 +539,7 @@
       "verified_persists": 0,
       "verify_rate": 1.0,
       "introduced_since_audit": 0,
-      "state": "disputed"
+      "state": "noisy"
     },
     "R30": {
       "total_hits": 12,
@@ -647,7 +647,7 @@
     },
     "SEC-shell-true": {
       "total_hits": 32,
-      "led_to_merged_pr": 0,
+      "led_to_merged_pr": 1,
       "led_to_rejected_pr": 0,
       "self_false_positive": 5,
       "maintainer_rejected": 0,
@@ -2987,7 +2987,7 @@
     },
     "BUG-stale-template": {
       "total_hits": 1,
-      "led_to_merged_pr": 0,
+      "led_to_merged_pr": 1,
       "led_to_rejected_pr": 0,
       "self_false_positive": 0,
       "maintainer_rejected": 0,
@@ -4122,10 +4122,10 @@
     "last_updated": "2026-04-10",
     "total_events": 16,
     "total_audits": 10,
-    "total_prs_submitted": 290,
-    "total_prs_merged": 104,
+    "total_prs_submitted": 292,
+    "total_prs_merged": 106,
     "total_prs_rejected": 55,
     "total_prs_applied_separately": 25,
-    "updated_at": "2026-06-20T22:25:22.774319Z"
+    "updated_at": "2026-06-21T22:25:55.988274Z"
   }
 }
