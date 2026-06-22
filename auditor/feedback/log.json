@@ -531,7 +531,7 @@
     "SEC-unpinned-semver": {
       "total_hits": 110,
       "led_to_merged_pr": 1,
-      "led_to_rejected_pr": 5,
+      "led_to_rejected_pr": 6,
       "self_false_positive": 0,
       "maintainer_rejected": 5,
       "downstream_suppressions": 0,
@@ -1428,7 +1428,7 @@
     "SEC-shell-injection": {
       "total_hits": 20,
       "led_to_merged_pr": 0,
-      "led_to_rejected_pr": 0,
+      "led_to_rejected_pr": 1,
       "self_false_positive": 0,
       "maintainer_rejected": 0,
       "downstream_suppressions": 0,
@@ -4124,8 +4124,8 @@
     "total_audits": 10,
     "total_prs_submitted": 292,
     "total_prs_merged": 106,
-    "total_prs_rejected": 55,
+    "total_prs_rejected": 57,
     "total_prs_applied_separately": 25,
-    "updated_at": "2026-06-21T22:25:55.988274Z"
+    "updated_at": "2026-06-22T22:33:27.552534Z"
   }
 }
