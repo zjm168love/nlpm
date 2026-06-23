@@ -15,12 +15,12 @@
         "deanpeters/Product-Manager-Skills",
         "tech-leads-club/agent-skills"
       ],
-      "led_to_merged_pr": 0,
+      "led_to_merged_pr": 1,
       "led_to_rejected_pr": 0,
       "self_false_positive": 0,
       "maintainer_rejected": 0,
       "downstream_suppressions": 0,
-      "verified_fixed": 21,
+      "verified_fixed": 22,
       "verified_persists": 0,
       "verify_rate": 1.0,
       "introduced_since_audit": 39,
@@ -351,13 +351,13 @@
       "led_to_merged_pr": 1,
       "led_to_rejected_pr": 2,
       "self_false_positive": 0,
-      "maintainer_rejected": 1,
+      "maintainer_rejected": 2,
       "downstream_suppressions": 0,
       "verified_fixed": 18,
       "verified_persists": 0,
       "verify_rate": 1.0,
       "introduced_since_audit": 8,
-      "state": "healthy"
+      "state": "disputed"
     },
     "R05": {
       "total_hits": 143,
@@ -494,7 +494,7 @@
       "led_to_merged_pr": 0,
       "led_to_rejected_pr": 3,
       "self_false_positive": 0,
-      "maintainer_rejected": 2,
+      "maintainer_rejected": 3,
       "downstream_suppressions": 0,
       "verified_fixed": 4,
       "verified_persists": 0,
@@ -1094,9 +1094,9 @@
       "self_false_positive": 0,
       "maintainer_rejected": 0,
       "downstream_suppressions": 0,
-      "verified_fixed": 0,
+      "verified_fixed": 5,
       "verified_persists": 0,
-      "verify_rate": null,
+      "verify_rate": 1.0,
       "introduced_since_audit": 2,
       "state": "healthy"
     },
@@ -4123,9 +4123,9 @@
     "total_events": 16,
     "total_audits": 10,
     "total_prs_submitted": 292,
-    "total_prs_merged": 106,
+    "total_prs_merged": 107,
     "total_prs_rejected": 57,
     "total_prs_applied_separately": 25,
-    "updated_at": "2026-06-22T22:33:27.552534Z"
+    "updated_at": "2026-06-23T22:25:51.413418Z"
   }
 }
