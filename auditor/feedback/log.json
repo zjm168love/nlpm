@@ -530,7 +530,7 @@
     },
     "SEC-unpinned-semver": {
       "total_hits": 110,
-      "led_to_merged_pr": 1,
+      "led_to_merged_pr": 2,
       "led_to_rejected_pr": 6,
       "self_false_positive": 0,
       "maintainer_rejected": 5,
@@ -4123,9 +4123,9 @@
     "total_events": 16,
     "total_audits": 10,
     "total_prs_submitted": 292,
-    "total_prs_merged": 107,
+    "total_prs_merged": 108,
     "total_prs_rejected": 57,
     "total_prs_applied_separately": 25,
-    "updated_at": "2026-06-23T22:25:51.413418Z"
+    "updated_at": "2026-06-24T22:27:56.967915Z"
   }
 }
