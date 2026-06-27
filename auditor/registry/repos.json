@@ -6023,7 +6023,9 @@
       "security": "REVIEW",
       "stars": 150,
       "status": "audited",
-      "strategy": "single"
+      "strategy": "single",
+      "exemplar_published": true,
+      "exemplar_path": "auditor/exemplars/nagisanzenin-claude-code-production-grade-plugin.md"
     },
     "navapbc/digital-service-orchestra": {
       "artifacts": 89,
