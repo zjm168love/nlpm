@@ -8520,10 +8520,13 @@
       "stars": 107,
       "artifacts": 9,
       "description": "A curated list of awesome claude marketplaces and plugins",
-      "status": "discovered",
-      "score": null,
+      "status": "audited",
+      "score": 69,
       "audit_issue": 453,
-      "prs": []
+      "prs": [],
+      "strategy": "single",
+      "security": "BLOCKED",
+      "commit_sha_at_audit": "2e99c8cbbe9af21769c847777cae604986d24109"
     },
     "JoasASantos/ClaudeAdvancedPlugins": {
       "discovered": "2026-06-27T01:56:32Z",
