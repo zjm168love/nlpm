@@ -2700,6 +2700,8 @@
       "commit_sha_at_audit": "7a524f6309b7213cc106b8ec7ff308af9287ada4",
       "description": "",
       "discovered": "2026-06-27T01:56:32Z",
+      "exemplar_path": "auditor/exemplars/alizarion-openclaw-claude-code-plugin.md",
+      "exemplar_published": true,
       "pipeline_prs": [],
       "prs": [],
       "score": 92,
