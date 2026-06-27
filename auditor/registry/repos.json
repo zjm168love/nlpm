@@ -8534,10 +8534,13 @@
       "stars": 131,
       "artifacts": 1,
       "description": "",
-      "status": "discovered",
-      "score": null,
+      "status": "audited",
+      "score": 92,
       "audit_issue": 455,
-      "prs": []
+      "prs": [],
+      "strategy": "single",
+      "security": "CLEAR",
+      "commit_sha_at_audit": "7a524f6309b7213cc106b8ec7ff308af9287ada4"
     },
     "buildatscale-tv/claude-code-plugins": {
       "discovered": "2026-06-27T01:56:32Z",
