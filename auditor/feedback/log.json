@@ -183,7 +183,7 @@
       "led_to_rejected_pr": 0,
       "self_false_positive": 0,
       "maintainer_rejected": 0,
-      "downstream_suppressions": 4,
+      "downstream_suppressions": 5,
       "verified_fixed": 0,
       "verified_persists": 0,
       "verify_rate": null,
@@ -4330,10 +4330,10 @@
     "last_updated": "2026-04-10",
     "total_events": 16,
     "total_audits": 10,
-    "total_prs_submitted": 301,
-    "total_prs_merged": 108,
-    "total_prs_rejected": 57,
-    "total_prs_applied_separately": 25,
-    "updated_at": "2026-06-27T22:21:58.370326Z"
+    "total_prs_submitted": 298,
+    "total_prs_merged": 107,
+    "total_prs_rejected": 56,
+    "total_prs_applied_separately": 24,
+    "updated_at": "2026-06-28T22:21:12.728639Z"
   }
 }
